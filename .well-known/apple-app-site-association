@@ -1,0 +1,23 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "ZRTM7GATT7.com.benrudhart.hoerbaer",
+        "paths": [
+          "/",
+          "/album/*",
+          "/artist/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "ZRTM7GATT7.com.benrudhart.hoerbaer"
+    ]
+  },
+  "appclips": {
+    "apps": []
+  }
+}
