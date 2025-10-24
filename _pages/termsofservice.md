@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Terms of Service
+title: AGB
 include_in_header: false
 ---
 

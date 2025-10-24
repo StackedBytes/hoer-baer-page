@@ -1,5 +1,5 @@
 #page title
-page_title                                :                                           # Automatically populates with app name if not set and if iOS app ID is set. Otherwise enter manually.
+page_title                                : HörBär - Hörspiel-App für Kinder         # Automatically populates with app name if not set and if iOS app ID is set. Otherwise enter manually.
 
 # App Info
 ios_app_id                                : 6748903433                                # Required. Enter iOS app ID to automatically populate name, price and icons (e.g. 718043190).
@@ -11,16 +11,16 @@ presskit_download_link                    : https://benrudhart.com              
                                                                                       # Or upload your press kit file to assets and set path accordingly (e.g. "assets/your_press_kit.zip").
 
 app_icon                                  : # assets/appicon.png                      # Automatically populates if not set and if iOS app ID is set.  Otherwise enter path to icon file manually.
-app_name                                  :                                           # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
-app_price                                 :                                           # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
-app_description                           : Write a short tagline for your app.
+app_name                                  : HörBär                                   # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
+app_price                                 : Kostenlose Testphase, danach Abo         # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
+app_description                           : Die Hörspiel-App, die Kinder lieben und Eltern vertrauen.
 
 enable_smart_app_banner                   : true                                      # Set to true to show a smart app banner at top of page on mobile devices.
 
 
 
 # Information About Yourself
-your_name                                 : Ben & Beat
+your_name                                 : Ben Rudhart
 your_link                                 : 
 your_city                                 : 
 email_address                             : support@hoerbaer.app
@@ -38,28 +38,28 @@ mastodon_link                             :
 # Feature List                            Edit, add or remove features to be presented.
 features                                  :
 
-  - title                                 : Personalized Kids' Recommendations
-    description                           : Rich onboarding tailors HörBär to your child's age and interests so every shelf feels handpicked.
+  - title                                 : Personalisierte Hörspiel-Empfehlungen
+    description                           : HörBär passt sich an Alter und Interessen deines Kindes an, damit ihr immer die Hörspiele findet, die ihr liebt.
     fontawesome_icon_name                 : child
 
-  - title                                 : 5k+ Audio Dramas via Apple Music
-    description                           : Enjoy thousands of kid-friendly audio dramas that are already part of your Apple Music subscription.
+  - title                                 : Über 5.000 Hörspiele via Apple Music
+    description                           : Greife auf tausende kindgerechte Hörspielserien zu, die bereits in deinem Apple-Music-Abo enthalten sind.
     fontawesome_icon_name                 : music
 
-  - title                                 : Continue Listening & Favorites
-    description                           : Pick up stories where you left off and build a favorites grid your kids can tap to start the next adventure instantly.
+  - title                                 : Weiterspielen & Favoriten
+    description                           : Setze Geschichten nahtlos fort und greife direkt auf alle deine Favoriten zu.
     fontawesome_icon_name                 : heart
 
-  - title                                 : New Episode Alerts
-    description                           : HörBär watches your saved series and pings you the moment a fresh episode drops.
+  - title                                 : Hinweise auf neue Folgen
+    description                           : HörBär informiert dich, sobald eine neue Folge deiner Favoriten erscheint.
     fontawesome_icon_name                 : bell
 
-  - title                                 : Kid-Safe Search & Categories
-    description                           : Smart filters surface only child-appropriate series and group them into intuitive categories parents can trust.
+  - title                                 : Kindgerechte Suche & Kategorien
+    description                           : Intelligente Filter zeigen ausschließlich kinderfreundliche Serien. Vorgefertigte Kategorien helfen, vertrauenswürdige Inhalte zu finden.
     fontawesome_icon_name                 : search
 
-  - title                                 : Mini and Fullscreen Player
-    description                           : Simple controls, animated feedback, and a quick track list keep listening smooth for kids and parents alike.
+  - title                                 : Mini- und Vollbild-Player
+    description                           : Einfache Steuerung, animiertes Feedback und die automatische Kaptielerkennung sorgen für entspanntes Hören bei Groß und Klein.
     fontawesome_icon_name                 : play-circle
 
 
