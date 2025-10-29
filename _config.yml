@@ -11,9 +11,9 @@ presskit_download_link                    : https://benrudhart.com              
                                                                                       # Or upload your press kit file to assets and set path accordingly (e.g. "assets/your_press_kit.zip").
 
 app_icon                                  : # assets/appicon.png                      # Automatically populates if not set and if iOS app ID is set.  Otherwise enter path to icon file manually.
-app_name                                  : HörBär                                   # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
-app_price                                 : Kostenlose Testphase, danach Abo         # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
-app_description                           : Die Hörspiel-App, die Kinder lieben und Eltern vertrauen.
+app_name                                  : # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
+app_price                                 : # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
+app_description                           : 
 
 enable_smart_app_banner                   : true                                      # Set to true to show a smart app banner at top of page on mobile devices.
 
@@ -43,14 +43,14 @@ features                                  :
     fontawesome_icon_name                 : child
 
   - title                                 : Über 5.000 Hörspiele via Apple Music
-    description                           : Greife auf tausende kindgerechte Hörspielserien zu, die bereits in deinem Apple-Music-Abo enthalten sind.
+    description                           : Greife auf tausende kindgerechte Hörspielserien zu, die bereits in deinem Apple-Music-Abo enthalten sind. Spare bares Geld 💰!
     fontawesome_icon_name                 : music
 
   - title                                 : Weiterspielen & Favoriten
-    description                           : Setze Geschichten nahtlos fort und greife direkt auf alle deine Favoriten zu.
+    description                           : Setze Geschichten nahtlos fort und finde alle deine Favoriten sofort.
     fontawesome_icon_name                 : heart
 
-  - title                                 : Hinweise auf neue Folgen
+  - title                                 : Benachrichtigungen bei neuen Folgen
     description                           : HörBär informiert dich, sobald eine neue Folge deiner Favoriten erscheint.
     fontawesome_icon_name                 : bell
 
@@ -59,7 +59,7 @@ features                                  :
     fontawesome_icon_name                 : search
 
   - title                                 : Mini- und Vollbild-Player
-    description                           : Einfache Steuerung, animiertes Feedback und die automatische Kaptielerkennung sorgen für entspanntes Hören bei Groß und Klein.
+    description                           : Einfache Steuerung, animiertes Feedback und die automatische Kaptielerkennung sorgen für entspanntes Hören bei Klein und Groß.
     fontawesome_icon_name                 : play-circle
 
 
