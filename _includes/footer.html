@@ -1,11 +1,13 @@
+{% assign footer_lang = page.lang | default: "de" %}
+{% assign footer_i18n = site.data.i18n[footer_lang].footer | default: site.data.i18n.de.footer %}
 <footer>
 	{% if site.your_name %}
-	<p class="footerText">Entwickelt von {% if site.your_link %}<a href="{{ site.your_link }}">{% endif %}{{ site.your_name }}{% if site.your_link %}</a>{% endif %}{% if site.your_city %} in {{ site.your_city }}{% endif %}</p>
+	<p class="footerText">{{ footer_i18n.built_by | default: "Entwickelt von" }} {% if site.your_link %}<a href="{{ site.your_link }}" target="_blank" rel="noopener noreferrer">{% endif %}{{ site.your_name }}{% if site.your_link %}</a>{% endif %}{% if site.your_city %} in {{ site.your_city }}{% endif %}</p>
 	{% endif %}
 	<div class="footerIcons">
 
 		{% if site.linkedin_username %}
-			<a href="https://linkedin.com/in/{{ site.linkedin_username }}">
+			<a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener noreferrer">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fab fa-linkedin fa-stack-1x"></i>
@@ -14,7 +16,7 @@
 		{% endif %}
 
 		{% if site.linkedin_company %}
-			<a href="https://linkedin.com/company/{{ site.linkedin_company }}">
+			<a href="https://linkedin.com/company/{{ site.linkedin_company }}" target="_blank" rel="noopener noreferrer">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fab fa-linkedin fa-stack-1x"></i>
@@ -23,7 +25,7 @@
 		{% endif %}
 
 		{% if site.facebook_username %}
-			<a href="https://facebook.com/{{ site.facebook_username }}">
+			<a href="https://facebook.com/{{ site.facebook_username }}" target="_blank" rel="noopener noreferrer">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fab fa-facebook fa-stack-1x"></i>
@@ -32,7 +34,7 @@
 		{% endif %}
 
 		{% if site.twitter_username %}
-			<a href="https://twitter.com/{{ site.twitter_username }}">
+			<a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener noreferrer">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fab fa-twitter fa-stack-1x"></i>
@@ -41,7 +43,7 @@
 		{% endif %}
 
 		{% if site.instagram_username %}
-			<a href="https://instagram.com/{{ site.instagram_username }}">
+			<a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" rel="noopener noreferrer">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fab fa-instagram fa-stack-1x"></i>
@@ -50,7 +52,7 @@
 		{% endif %}
 
 		{% if site.mastodon_link %}
-			<a rel="me" href="{{ site.mastodon_link }}">
+			<a rel="me noopener noreferrer" href="{{ site.mastodon_link }}" target="_blank">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fab fa-mastodon fa-stack-1x"></i>
@@ -59,7 +61,7 @@
 		{% endif %}
 
 		{% if site.github_username %}
-			<a href="https://github.com/{{ site.github_username }}">
+			<a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fab fa-github fa-stack-1x"></i>
@@ -78,11 +80,11 @@
 
 	</div>
 	<div class="footerLinks">
-		{% for page in site.pages %}
-			<a href="{{ page.url | relative_url }}" target="_self">{{ page.title }}</a>
-		{% endfor %}
-		<!-- {% if site.presskit_download_link %}
-			<a href="{{ site.presskit_download_link }}">Pressemappe</a>
-		{% endif %} -->
+		<a href="{{ '/changelog/' | relative_url }}">{{ footer_i18n.changelog | default: "Neuigkeiten" }}</a>
+		<a href="{{ '/privacypolicy/' | relative_url }}">{{ footer_i18n.privacy | default: "Datenschutzerklärung" }}</a>
+		<a href="{{ '/termsofservice/' | relative_url }}">{{ footer_i18n.terms | default: "AGB" }}</a>
+		{% if footer_lang == "en" %}
+			<a href="{{ '/en/legal/' | relative_url }}">{{ footer_i18n.legal_note | default: "Legal notice" }}</a>
+		{% endif %}
 	</div>
 </footer>

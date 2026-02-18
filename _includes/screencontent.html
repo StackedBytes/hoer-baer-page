@@ -1,47 +1,59 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+{% assign primary_screenshot = "" %}
+{% assign has_video = false %}
 
 {% for file in site.static_files %}
-    {% if file.path contains 'assets/screenshot/' %}
-        <script>
-            $(function() {
-                $(".iphoneScreen").attr('src', '{{ site.github.baseurl }}{{ file.path }}');
-                $(".iphoneScreen").removeClass("hidden");
-                console.log("{{ file.path }}");
-            });
-        </script>
-    {% elsif file.path contains 'assets/videos/' %}
-        {% unless file.path contains 'assets/videos/Place-video-files-here.txt' %}
-            <script>
-                $(function() {
-                    $(".iphoneScreen").addClass("hidden");
-                    console.log("remove screenshot");
-                });
-            </script>
-        {% endunless %}
-        {% if file.extname == ".mov" or file.extname == ".mp4" %}
-            <script>
-                $(function() {
-                    $(".videoContainer").removeClass("hidden");
-                    $(".screenvideo").append('<source src="{{ site.github.baseurl }}{{ file.path }}" type="video/mp4">');
-                    console.log("{{ file.path }}");
-                });
-            </script>
-        {% elsif file.extname == ".ogg" %}
-            <script>
-                $(function() {
-                    $(".videoContainer").removeClass("hidden");
-                    $(".screenvideo").append('<source src="{{ site.github.baseurl }}{{ file.path }}" type="video/ogg">');
-                    console.log("{{ file.path }}");
-                });
-            </script>
-        {% elsif file.extname == ".webm" %}
-        <script>
-            $(function() {
-                $(".videoContainer").removeClass("hidden");
-                $(".screenvideo").append('<source src="{{ site.github.baseurl }}{{ file.path }}" type="video/webm">');
-                console.log("{{ file.path }}");
-            });
-        </script>
-        {% endif %}
-    {% endif %}
+	{% if file.path contains "assets/screenshot/" and file.name == "hero-de-0.jpg" %}
+		{% assign primary_screenshot = file.path %}
+		{% break %}
+	{% endif %}
 {% endfor %}
+
+{% for file in site.static_files %}
+	{% if file.path contains "assets/screenshot/" and file.name != "yourscreenshot.png" and primary_screenshot == "" %}
+		{% assign primary_screenshot = file.path %}
+	{% endif %}
+	{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" %}
+		{% if file.extname == ".mp4" or file.extname == ".mov" or file.extname == ".webm" or file.extname == ".ogg" %}
+			{% assign has_video = true %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+<script>
+$(function() {
+	var $screenImage = $(".iphoneScreen");
+	var $videoContainer = $(".videoContainer");
+	var $video = $(".screenvideo");
+
+	{% if has_video %}
+		$screenImage.addClass("hidden");
+		$videoContainer.removeClass("hidden");
+
+		{% for file in site.static_files %}
+			{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" and (file.extname == ".mp4" or file.extname == ".mov") %}
+				$video.append('<source src="{{ file.path | relative_url }}" type="video/mp4">');
+			{% endif %}
+		{% endfor %}
+
+		{% for file in site.static_files %}
+			{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" and file.extname == ".webm" %}
+				$video.append('<source src="{{ file.path | relative_url }}" type="video/webm">');
+			{% endif %}
+		{% endfor %}
+
+		{% for file in site.static_files %}
+			{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" and file.extname == ".ogg" %}
+				$video.append('<source src="{{ file.path | relative_url }}" type="video/ogg">');
+			{% endif %}
+		{% endfor %}
+
+		if ($video.find("source").length > 0) {
+			$video.get(0).load();
+		}
+	{% elsif primary_screenshot != "" %}
+		$videoContainer.addClass("hidden");
+		$screenImage.attr("src", "{{ primary_screenshot | relative_url }}");
+		$screenImage.removeClass("hidden");
+	{% endif %}
+});
+</script>

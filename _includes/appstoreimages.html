@@ -1,69 +1,75 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
 {% if site.ios_app_id %}
 
 <script>
-
 $(function() {
-
     var apiURL = "https://itunes.apple.com/lookup?id={{ site.ios_app_id }}&country={{ site.ios_app_country }}&callback=?";
 
-    $.getJSON(apiURL, function(json) {
+    function prefersApi($element) {
+        return String($element.data("preferApi")) === "true";
+    }
 
-        if (json.results && json.results.length) {
+    function normalized(value) {
+        return (value || "").toString().trim();
+    }
 
-            console.info("Image strings loaded from Apple API.");
+    function shouldFillText($element) {
+        return prefersApi($element) || normalized($element.text()).length === 0;
+    }
+
+    function shouldFillAttr($element, attributeName) {
+        return prefersApi($element) || normalized($element.attr(attributeName)).length === 0;
+    }
+
+    $.getJSON(apiURL)
+        .done(function(json) {
+            if (!(json.results && json.results.length)) {
+                return;
+            }
+
             var appInfo = json.results[0];
 
-            // Set favicon
-            $('link[rel="shortcut icon"]').attr("href", appInfo.artworkUrl512);
+            if (appInfo.artworkUrl512) {
+                $('link[rel="shortcut icon"]').attr("href", appInfo.artworkUrl512);
+            }
 
-            // Set page title using the iOS app ID if it is not set manually in _config.yml
             var $pageTitle = $(".pageTitle");
-            if ($.trim($($pageTitle).text()).length == 0) {
-                $($pageTitle).html(appInfo.trackName);
+            if (appInfo.trackName && shouldFillText($pageTitle)) {
+                $pageTitle.text(appInfo.trackName);
             }
 
-            // Set large app icon using the iOS app ID if it is not set manually in _config.yml
             var $appIconLarge = $(".appIconLarge");
-            if (!$appIconLarge.attr('src')) {
-                $($appIconLarge).attr("src", appInfo.artworkUrl512);
+            if (appInfo.artworkUrl512 && shouldFillAttr($appIconLarge, "src")) {
+                $appIconLarge.attr("src", appInfo.artworkUrl512);
             }
 
-            // Set header app icon using the iOS app ID if it is not set manually in _config.yml
             var $appIconHeader = $(".headerIcon");
-            if (!$appIconHeader.attr('src')) {
-                $($appIconHeader).attr("src", appInfo.artworkUrl512);
+            if (appInfo.artworkUrl512 && shouldFillAttr($appIconHeader, "src")) {
+                $appIconHeader.attr("src", appInfo.artworkUrl512);
             }
 
-            // Set app name using the iOS app ID if it is not set manually in _config.yml
             var $appName = $(".appName");
-            if ($.trim($($appName).text()).length == 0) {
-                $($appName).html(appInfo.trackName);
+            if (appInfo.trackName && shouldFillText($appName)) {
+                $appName.text(appInfo.trackName);
             }
 
-            // Set the name displayed in the header if it is not set manually in _config.yml
             var $headerName = $(".headerName");
-            if ($.trim($($headerName).text()).length == 0) {
-                $($headerName).html(appInfo.trackName);
+            if (appInfo.trackName && shouldFillText($headerName)) {
+                $headerName.text(appInfo.trackName);
             }
 
-            // Set price using the iOS app ID if it is not set manually in _config.yml
             var $appPrice = $(".appPrice");
-            if ($.trim($($appPrice).text()).length == 0) {
-                $($appPrice).html(appInfo.formattedPrice);
+            if (appInfo.formattedPrice && shouldFillText($appPrice)) {
+                $appPrice.text(appInfo.formattedPrice);
             }
 
-            // Set App Store link using the iOS app ID if it is not set manually in _config.yml
             var $appStoreLink = $(".appStoreLink");
-            if ($.trim($appStoreLink.attr('href')).length == 0) {
-                $($appStoreLink).attr("href", appInfo.trackViewUrl);
+            if (appInfo.trackViewUrl && shouldFillAttr($appStoreLink, "href")) {
+                $appStoreLink.attr("href", appInfo.trackViewUrl);
             }
-
-            console.info(appInfo);
-
-        }
-    });  
+        })
+        .fail(function() {
+            // Keep configured fallback values when App Store lookup is unavailable.
+        });
 });
 
 </script>

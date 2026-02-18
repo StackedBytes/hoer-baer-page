@@ -3,7 +3,9 @@
 ---
 
 <!DOCTYPE html>
-<html lang="en-us">
+{% assign current_lang = page.lang | default: "de" %}
+{% assign t = site.data.i18n[current_lang] | default: site.data.i18n.de %}
+<html lang="{{ current_lang }}">
 
 {% include head.html %}
 

@@ -1,3 +1,22 @@
+{% assign header_lang = page.lang | default: "de" %}
+{% assign header_texts = site.data.i18n[header_lang] | default: site.data.i18n.de %}
+{% assign home_url = "/" %}
+{% if header_lang == "en" %}
+	{% assign home_url = "/en/" %}
+{% endif %}
+{% assign header_pages = site.pages | where: "include_in_header", true %}
+{% assign language_switch_url = "/en/" %}
+{% assign language_switch_label = "EN" %}
+{% assign language_switch_flag = "🇬🇧" %}
+{% if header_lang == "en" %}
+	{% assign language_switch_url = "/" %}
+	{% assign language_switch_label = "DE" %}
+	{% assign language_switch_flag = "🇩🇪" %}
+{% endif %}
+{% assign nav_class = "scroll" %}
+{% if header_pages.size == 0 %}
+	{% assign nav_class = "scroll languageOnly" %}
+{% endif %}
 <header>
 	<div class="logo">
 		<div class="appIconShadow">
@@ -8,25 +27,26 @@
 					</clipPath>
 				</defs>
 			</svg>
-			{% if page.url != '/' %}
-				<a href="../" target="_self"><img class="headerIcon" src="{{ site.app_icon | relative_url }}"></a>
+			{% if page.url != home_url %}
+				<a href="{{ home_url | relative_url }}"><img class="headerIcon" src="{{ site.app_icon | relative_url }}" alt="{{ header_texts.app_icon_alt | default: 'App icon' }}" data-prefer-api="true"></a>
 			{% else %}
-				<img class="headerIcon" src="{{ site.app_icon | relative_url }}">
+				<img class="headerIcon" src="{{ site.app_icon | relative_url }}" alt="{{ header_texts.app_icon_alt | default: 'App icon' }}" data-prefer-api="true">
 			{% endif %}
 			<div class="divider"></div>
 		</div>
-		<p class="headerName">{{ site.app_name }}</p>
+		<p class="headerName" data-prefer-api="true">{{ header_texts.hero_headline | default: site.app_name }}</p>
 	</div>
-	<nav class="scroll">
+	<nav class="{{ nav_class }}">
 		<ul>
-			{% for page in site.pages %}
-				{% if page.include_in_header == true %}
-				<li><a href="{{ page.url | relative_url }}" target="_self">{{ page.title }}</a></li>
-				{% endif %}
+			{% for header_page in header_pages %}
+				<li><a href="{{ header_page.url | relative_url }}">{{ header_page.title }}</a></li>
 			{% endfor %}
-			<!-- {% if site.presskit_download_link %}
-				<li><a href="{{ site.presskit_download_link }}">Pressemappe</a></li>
-			{% endif %} -->
+			<li class="langSwitchItem">
+				<a class="langSwitchLink" href="{{ language_switch_url | relative_url }}">
+					<span class="langSwitchFlag" aria-hidden="true">{{ language_switch_flag }}</span>
+					<span class="langSwitchCode">{{ language_switch_label }}</span>
+				</a>
+			</li>
 		</ul>
 	</nav>
 </header>

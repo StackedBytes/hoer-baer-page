@@ -1,11 +1,48 @@
 <head>
+	{% assign current_lang = page.lang | default: "de" %}
+	{% assign t = site.data.i18n[current_lang] | default: site.data.i18n.de %}
+	{% assign og_locale = "de_DE" %}
+	{% if current_lang == "en" %}
+		{% assign og_locale = "en_US" %}
+	{% endif %}
+	{% assign default_title = t.page_title | default: site.page_title %}
+	{% assign page_title_text = page.page_title | default: page.title | default: default_title %}
+	{% assign meta_description = page.meta_description | default: t.meta_description | default: site.app_description %}
+	{% assign canonical_url = page.url | absolute_url %}
+	{% assign og_image = site.cover_image | absolute_url %}
+
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<base target="_blank">
 
-	<title class="pageTitle">{{ site.page_title }}</title>
-	<meta name="description" content="{{ site.app_description }}">
+	<title class="pageTitle">{{ page_title_text }}</title>
+	<meta name="description" content="{{ meta_description }}">
+	<meta name="theme-color" content="{{ site.topbar_color }}">
+
+	<link rel="canonical" href="{{ canonical_url }}">
+	{% if page.url == "/" or page.url == "/en/" %}
+		<link rel="alternate" hreflang="de" href="{{ '/' | absolute_url }}">
+		<link rel="alternate" hreflang="en" href="{{ '/en/' | absolute_url }}">
+		<link rel="alternate" hreflang="x-default" href="{{ '/' | absolute_url }}">
+	{% endif %}
+
+	<meta property="og:title" content="{{ page_title_text }}">
+	<meta property="og:description" content="{{ meta_description }}">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ canonical_url }}">
+	<meta property="og:image" content="{{ og_image }}">
+	<meta property="og:locale" content="{{ og_locale }}">
+	{% if page.url == "/" or page.url == "/en/" %}
+		<meta property="og:locale:alternate" content="{% if current_lang == 'de' %}en_US{% else %}de_DE{% endif %}">
+	{% endif %}
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="{{ page_title_text }}">
+	<meta name="twitter:description" content="{{ meta_description }}">
+	<meta name="twitter:image" content="{{ og_image }}">
+	{% if site.twitter_username %}
+		<meta name="twitter:site" content="@{{ site.twitter_username }}">
+	{% endif %}
 
 	<link rel="shortcut icon" href="{{ site.app_icon | relative_url }}">
 
@@ -14,6 +51,7 @@
 		<meta name="apple-itunes-app" content="app-id={{ site.ios_app_id }}">
 	{% endif %}
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ '/main.css' | relative_url }}">
 </head>

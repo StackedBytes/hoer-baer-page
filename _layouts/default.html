@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="de">
+{% assign current_lang = page.lang | default: "de" %}
+{% assign t = site.data.i18n[current_lang] | default: site.data.i18n.de %}
+<html lang="{{ current_lang }}">
 
 {% include head.html %}
 
@@ -17,11 +19,11 @@
                         </svg>
 
                         <div class="videoContainer hidden">
-                            <video class="screenvideo" autoplay="autoplay" controls="controls">
+                            <video class="screenvideo" autoplay muted playsinline controls preload="metadata" aria-label="{{ t.video_aria_label | default: 'App video preview' }}">
                             </video>
                         </div>  
                         
-                        <img class="iphoneScreen hidden" src="" alt="">
+                        <img class="iphoneScreen hidden" src="" alt="{{ t.screenshot_alt | default: 'App screenshot' }}">
 
                         {% include screencontent.html %}
 
@@ -35,26 +37,31 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <img class="appIconLarge" src="{{ site.app_icon | relative_url }}">
+                            <img class="appIconLarge" src="{{ site.app_icon | relative_url }}" alt="{{ t.app_icon_alt | default: 'App icon' }}" data-prefer-api="true">
                         </div>
                         <div class="appNamePriceContainer">
-                            <h1 class="appName">
-                                {{ site.app_name }}
+                            <h1 class="appName" data-prefer-api="true">
+                                {{ t.hero_headline | default: site.app_name }}
                             </h1>
-                            <h2 class="appPrice">
+                            <h2 class="appPrice" data-prefer-api="true">
                                 {{ site.app_price }}
                             </h2>
                         </div>
                         <div class="appDescriptionContainer">
                             <p class ="appDescription">
-                                {{ site.app_description }}
+                                {{ t.hero_subline | default: site.app_description }}
                             </p>
                         </div>
                         <div class="downloadButtonsContainer">
                             {% if site.playstore_link %}
-                                <a class="playStoreLink" href="{{site.playstore_link}}"><img class="playStore" src="assets/playstore.png"></a>
+                                <a class="playStoreLink" href="{{ site.playstore_link }}" target="_blank" rel="noopener noreferrer">
+                                    <img class="playStore" src="{{ 'assets/playstore.png' | relative_url }}" alt="{{ t.playstore_badge_alt | default: 'Get it on Google Play' }}">
+                                </a>
                             {% endif %}
-                            <a class="appStoreLink" href="{{site.appstore_link}}"><img class="appStore" src="assets/appstore.png"></a>
+                            <a class="appStoreLink" href="{{ site.appstore_link }}" target="_blank" rel="noopener noreferrer" data-prefer-api="true">
+                                <img class="appStore" src="{{ 'assets/appstore.png' | relative_url }}" alt="{{ t.appstore_badge_alt | default: 'Download on the App Store' }}">
+                            </a>
+                            <p class="ctaNote">{{ t.cta_note }}</p>
                         </div>
                     </div>
                     {% include features.html %}
