@@ -9,7 +9,6 @@ de:
   screenshot_alt: "Screenshot der HörBär-App"
   video_aria_label: "Vorschauvideo der HörBär-App"
   appstore_badge_alt: "Im App Store laden"
-  playstore_badge_alt: "Bei Google Play herunterladen"
   features:
     - icon: "music"
       title: "Tausende Hörspiele mit Apple Music"
@@ -48,7 +47,6 @@ en:
   screenshot_alt: "Screenshot of the HoerBaer app"
   video_aria_label: "Video preview of the HoerBaer app"
   appstore_badge_alt: "Download on the App Store"
-  playstore_badge_alt: "Get it on Google Play"
   features:
     - icon: "music"
       title: "Thousands of stories with Apple Music"
