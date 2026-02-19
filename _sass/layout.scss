@@ -425,6 +425,114 @@ nav > ul li a.langPickerOption.isActive:visited {
 	color: rgba($feature-text-color, 0.96);
 }
 
+.subPageBody .markdown-body .changelogEntry {
+	margin: 0 0 16px 0;
+	border: 1px solid rgba($feature-title-color, 0.2);
+	border-radius: 14px;
+	background-color: rgba(#fff, 0.74);
+	overflow: hidden;
+	transition: box-shadow 0.24s ease, height 0.28s ease;
+}
+
+.subPageBody .markdown-body .changelogEntry[open] {
+	box-shadow: 0px 10px 22px rgba(#000, 0.08);
+}
+
+.subPageBody .markdown-body .changelogEntry summary {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: auto auto;
+	column-gap: 14px;
+	row-gap: 4px;
+	align-items: start;
+	padding: 16px 18px;
+	cursor: pointer;
+	list-style: none;
+}
+
+.subPageBody .markdown-body .changelogEntry summary::-webkit-details-marker {
+	display: none;
+}
+
+.subPageBody .markdown-body .changelogEntry summary::after {
+	content: "\203A";
+	font-size: 3rem;
+	font-weight: 600;
+	line-height: 1;
+	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+	display: inline-block;
+	color: rgba($feature-title-color, 0.7);
+	grid-column: 2;
+	grid-row: 1 / span 2;
+	align-self: center;
+	transition: transform 0.28s ease, color 0.2s ease;
+	transform: translateY(-1px) rotate(0deg);
+}
+
+.subPageBody .markdown-body .changelogEntry[open] summary::after {
+	transform: translateY(-1px) rotate(90deg);
+	color: rgba($feature-title-color, 0.95);
+}
+
+.subPageBody .markdown-body .changelogVersion {
+	font-size: 3.1rem;
+	font-weight: 800;
+	line-height: 1.2;
+	color: $feature-title-color;
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.subPageBody .markdown-body .changelogDate {
+	font-size: 1.35rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+	color: rgba($feature-title-color, 0.74);
+	grid-column: 1;
+	grid-row: 2;
+}
+
+.subPageBody .markdown-body .changelogContent {
+	padding: 0 18px 16px 18px;
+}
+
+.subPageBody .markdown-body .changelogEntry.isAnimating {
+	overflow: hidden;
+}
+
+.subPageBody .markdown-body .changelogNotes {
+	margin: 0;
+	padding-left: 24px;
+}
+
+.subPageBody .markdown-body .changelogNotes li {
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.subPageBody .markdown-body .changelogEmpty {
+	margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+	.subPageBody .markdown-body .changelogEntry summary {
+		padding: 14px 14px;
+	}
+
+	.subPageBody .markdown-body .changelogVersion {
+		font-size: 2.6rem;
+	}
+
+	.subPageBody .markdown-body .changelogDate {
+		font-size: 1.3rem;
+	}
+
+	.subPageBody .markdown-body .changelogContent {
+		padding: 0 14px 14px 14px;
+	}
+}
+
 // Improve contrast on subpages where no hero image is present.
 .subPageHeaderBackground .headerName {
 	color: $feature-title-color;

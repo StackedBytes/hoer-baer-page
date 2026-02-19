@@ -23,6 +23,81 @@
         </div>
         {% include appstoreimages.html %}
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var entries = document.querySelectorAll(".changelogEntry");
+            if (!entries.length) {
+                return;
+            }
+
+            entries.forEach(function (entry) {
+                var summary = entry.querySelector("summary");
+                if (!summary) {
+                    return;
+                }
+
+                summary.addEventListener("click", function (event) {
+                    event.preventDefault();
+
+                    var startHeight = entry.offsetHeight;
+                    var summaryHeight = summary.offsetHeight;
+                    var isOpen = entry.open;
+
+                    entry.style.height = startHeight + "px";
+                    entry.classList.add("isAnimating");
+
+                    if (!isOpen) {
+                        entry.open = true;
+                        var endOpenHeight = entry.scrollHeight;
+
+                        if (endOpenHeight === startHeight) {
+                            entry.classList.remove("isAnimating");
+                            entry.style.height = "";
+                            return;
+                        }
+
+                        requestAnimationFrame(function () {
+                            entry.style.height = endOpenHeight + "px";
+                        });
+
+                        var onOpenEnd = function (transitionEvent) {
+                            if (transitionEvent.propertyName !== "height") {
+                                return;
+                            }
+                            entry.classList.remove("isAnimating");
+                            entry.style.height = "";
+                            entry.removeEventListener("transitionend", onOpenEnd);
+                        };
+
+                        entry.addEventListener("transitionend", onOpenEnd);
+                    } else {
+                        if (startHeight === summaryHeight) {
+                            entry.open = false;
+                            entry.classList.remove("isAnimating");
+                            entry.style.height = "";
+                            return;
+                        }
+
+                        requestAnimationFrame(function () {
+                            entry.style.height = summaryHeight + "px";
+                        });
+
+                        var onCloseEnd = function (transitionEvent) {
+                            if (transitionEvent.propertyName !== "height") {
+                                return;
+                            }
+                            entry.open = false;
+                            entry.classList.remove("isAnimating");
+                            entry.style.height = "";
+                            entry.removeEventListener("transitionend", onCloseEnd);
+                        };
+
+                        entry.addEventListener("transitionend", onCloseEnd);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
