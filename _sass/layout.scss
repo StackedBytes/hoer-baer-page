@@ -107,12 +107,15 @@ header {
 	margin-right: 30px;
 }
 
-.logo > p {
+.headerName {
 	color: $header-title-color;
 	white-space: nowrap;
-	display: flex;
-	font-weight: bold;
-	margin-left: 15px;
+	display: block;
+	font-size: clamp(3.4rem, 3.6vw, 5.5rem);
+	font-weight: 800;
+	line-height: 0.95;
+	letter-spacing: -0.02em;
+	margin-left: 12px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -122,29 +125,25 @@ header {
 		margin-right: 0px;
 	}
 
-	.logo > p {
-		display: none;
+	.headerName {
+		font-size: 2.8rem;
+		margin-left: 10px;
 	}
 	
 } 
 
 .headerIcon {
-	width: 50px;
-	height: 50px;
-	-webkit-clip-path: url(#shape);
-	clip-path: url(#shape);
+	width: 58px;
+	height: 58px;
+	border-radius: 14px;
 }
 
 @media only screen and (max-width: 768px) {
 
-	.divider {
-		position: relative;
-		min-width: 1px;
-		max-width: 1px;
-		background-color:rgba(127, 127, 127, 0.2);
-		display: inline-block;
-		margin-left: 15px;
-	}	
+	.headerIcon {
+		width: 46px;
+		height: 46px;
+	}
 	
 } 
 
@@ -359,7 +358,7 @@ nav > ul li a.langPickerOption.isActive:visited {
 
 
 // Sub Page Header Styling
-.subPageHeaderBackground .logo > p {
+.subPageHeaderBackground .headerName {
 	color: #000;
 }
 
