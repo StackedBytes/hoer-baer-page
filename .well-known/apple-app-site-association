@@ -3,11 +3,16 @@
     "apps": [],
     "details": [
       {
-        "appID": "ZRTM7GATT7.com.benrudhart.hoerbaer",
-        "paths": [
-          "/",
-          "/album/*",
-          "/artist/*"
+                "appIDs": [
+                    "ZRTM7GATT7.com.benrudhart.hoerbaer"
+                ],
+                "components": [
+                    {
+                        "/": "/"
+                    },
+                    {
+                        "/": "/*"
+          }
         ]
       }
     ]
