@@ -11,7 +11,7 @@ de:
   features:
     - icon: "music"
       title: "Tausende Hörspiele mit Apple Music"
-      description: "Nutze euer bestehendes Apple-Music-Abo und entdecke sofort tausende kindgerechte Hörspiele."
+      description: "Nutzt euer bestehendes Apple-Music-Abo und entdeckt sofort tausende kindgerechte Hörspiele."
     - icon: "search"
       title: "Kindersichere Auswahl"
       description: "Altersgerechte Filter und klare Kategorien sparen Zeit und geben Sicherheit bei jeder Auswahl."
@@ -23,7 +23,7 @@ de:
       description: "Speichere Lieblingsserien mit einem Tipp und starte die nächste Folge in Sekunden."
     - icon: "bell"
       title: "Neue Folgen mitbekommen"
-      description: "Erhalte automatisch Hinweise auf neue Episoden und verpasst keine Lieblingsfolge mehr."
+      description: "Werde automatisch für neue Episoden benachrichtigt und verpasst keine Lieblingsfolge mehr."
     - icon: "child"
       title: "Kinderleicht bedienbar"
       description: "Große, übersichtliche Bedienelemente machen die App sofort verständlich, auch im hektischen Alltag."
