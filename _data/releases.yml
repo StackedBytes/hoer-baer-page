@@ -1,0 +1,60 @@
+---
+app_id: '6748903433'
+updated_at: '2026-02-19T10:24:22Z'
+releases:
+  de:
+  - version: '1.3'
+    released_at: '2026-02-07'
+    notes:
+    - "● Neu in HörBär"
+    - Countdown für kommende Veröffentlichungen – Im Vollbild-Player siehst du, wann ein Vorbestellungs- oder kommendes Hörspiel verfügbar ist.
+    - Hörspiele gratis zum Reinhören – Neue Nutzer können die App ohne Abo testen und einige Hörspiele kostenlos anhören.
+    - Benachrichtigungen für Lieblingskünstler – Du wirst informiert, wenn deine Lieblingskünstler neue Hörbücher veröffentlichen.
+    - Neue Tipps in der App – Kurze Hinweise, wie du Favoriten hinzufügst und Benachrichtigungen für neue Veröffentlichungen aktivierst.
+    - Überarbeitete Player-Steuerung – Klarere Darstellung der Steuerung im Vollbild-Player.
+    - "■ Verbesserungen und Fehlerbehebungen"
+    - Startseite lädt zuverlässiger; unerwartetes Neuladen der Bereiche wurde behoben.
+    - Fortschrittsanzeige und andere kleine Darstellungsfehler korrigiert.
+    - Verbesserte Vorschläge und Inhalte auf der Startseite.
+    - Stabilitätsverbesserungen.
+  - version: '1.2'
+    released_at: '2026-01-22'
+    notes:
+    - Überarbeitete Tabs für schnelleren Zugriff
+    - Eigener "Lieblinge"-Tab für Favoriten
+    - Smarter Startseiten-Tab "Für dich"
+    - Frische Icons für jeden Tab
+    - Neue, lebendigere Farbgebung für bessere Erkennbarkeit wichtiger Aktionen
+    - Stabilitätsverbesserungen
+  - version: '1.0'
+    released_at: '2025-11-01'
+    notes:
+    - Initiale Veröffentlichung der App
+  en:
+  - version: '1.3'
+    released_at: '2026-02-07'
+    notes:
+    - "● New in HörBär"
+    - Countdown for upcoming releases – In the full-screen player, you can now see when a preordered or upcoming audio drama will be available.
+    - Free audio dramas to try – New users can test the app without a subscription and listen to selected audio dramas for free.
+    - Notifications for favorite artists – Get notified when your favorite artists release new audiobooks.
+    - New tips in the app – Short hints show you how to add favorites and turn on notifications for new releases.
+    - Updated player controls – Clearer, more intuitive controls in the full-screen player.
+    - "■ Improvements and bug fixes"
+    - Home screen now loads more reliably; unexpected reloading of sections has been fixed.
+    - Progress display and other minor visual glitches have been corrected.
+    - Better recommendations and content on the home screen.
+    - Stability improvements.
+  - version: '1.2'
+    released_at: '2026-01-22'
+    notes:
+    - Updated tabs for faster access
+    - Dedicated Favorites tab
+    - Smarter "For You" home tab
+    - Fresh icons for each tab
+    - New, more vivid color palette to highlight key actions
+    - Stability improvements
+  - version: '1.0'
+    released_at: '2025-11-01'
+    notes:
+    - Initial app release

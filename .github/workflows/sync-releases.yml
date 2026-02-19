@@ -1,0 +1,41 @@
+name: Sync App Store Releases
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions schedule uses UTC; 07:00 UTC runs in the local morning in Europe.
+    - cron: "0 7 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync-releases:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Update release data
+        env:
+          IOS_APP_ID: "6748903433"
+        run: ruby scripts/update_releases.rb
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- _data/releases.yml; then
+            echo "No release changes detected"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/releases.yml
+          git commit -m "chore: sync app store releases"
+          git push

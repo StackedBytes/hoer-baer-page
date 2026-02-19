@@ -1,5 +1,9 @@
 {% assign footer_lang = page.lang | default: "en" %}
 {% assign footer_i18n = site.data.i18n[footer_lang].footer | default: site.data.i18n.en.footer %}
+{% assign changelog_link = "/changelog/" %}
+{% if footer_lang == "de" %}
+	{% assign changelog_link = "/de/changelog/" %}
+{% endif %}
 <footer>
 	{% if site.your_name %}
 	<p class="footerText">{{ footer_i18n.built_by | default: "Entwickelt von" }} {% if site.your_link %}<a href="{{ site.your_link }}" target="_blank" rel="noopener noreferrer">{% endif %}{{ site.your_name }}{% if site.your_link %}</a>{% endif %}{% if site.your_city %} in {{ site.your_city }}{% endif %}</p>
@@ -80,7 +84,7 @@
 
 	</div>
 	<div class="footerLinks">
-		<a href="{{ '/de/changelog/' | relative_url }}">{{ footer_i18n.changelog | default: "Neuigkeiten" }}</a>
+		<a href="{{ changelog_link | relative_url }}">{{ footer_i18n.changelog | default: "Neuigkeiten" }}</a>
 		<a href="{{ '/de/privacypolicy/' | relative_url }}">{{ footer_i18n.privacy | default: "Datenschutzerklärung" }}</a>
 		<a href="{{ '/de/termsofservice/' | relative_url }}">{{ footer_i18n.terms | default: "AGB" }}</a>
 		{% if footer_lang == "en" %}
