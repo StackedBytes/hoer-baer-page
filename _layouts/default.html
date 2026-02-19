@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 {% assign current_lang = page.lang | default: "en" %}
 {% assign t = site.data.i18n[current_lang] | default: site.data.i18n.en %}
-<html lang="{{ current_lang }}">
+{% assign html_lang = current_lang %}
+{% if current_lang == "en" %}
+	{% assign html_lang = "en-US" %}
+{% endif %}
+<html lang="{{ html_lang }}">
 
 {% include head.html %}
 
@@ -44,7 +48,7 @@
                                 {{ t.hero_headline | default: site.app_name }}
                             </h1>
                             <h2 class="appPrice" data-prefer-api="true">
-                                {{ site.app_price }}
+                                {{ t.app_price | default: site.app_price }}
                             </h2>
                         </div>
                         <div class="appDescriptionContainer">

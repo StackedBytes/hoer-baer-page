@@ -5,21 +5,18 @@
 	{% assign home_url = "/de/" %}
 {% endif %}
 {% assign header_pages = site.pages | where: "include_in_header", true | where: "lang", header_lang %}
-{% assign language_target_lang = "de" %}
-{% assign language_switch_url = "/de/" %}
-{% assign language_switch_label = "DE" %}
-{% assign language_switch_flag = "🇩🇪" %}
-{% if header_lang == "de" %}
-	{% assign language_target_lang = "en" %}
-	{% assign language_switch_url = "/" %}
-	{% assign language_switch_label = "EN" %}
-	{% assign language_switch_flag = "🇬🇧" %}
-{% endif %}
+{% assign language_en_url = "/" %}
+{% assign language_de_url = "/de/" %}
 {% if page.translation_key %}
-	{% assign translation_candidates = site.pages | where: "translation_key", page.translation_key | where: "lang", language_target_lang %}
-	{% assign translation_page = translation_candidates | first %}
-	{% if translation_page %}
-		{% assign language_switch_url = translation_page.url %}
+	{% assign de_translation_candidates = site.pages | where: "translation_key", page.translation_key | where: "lang", "de" %}
+	{% assign de_translation_page = de_translation_candidates | first %}
+	{% if de_translation_page %}
+		{% assign language_de_url = de_translation_page.url %}
+	{% endif %}
+	{% assign en_translation_candidates = site.pages | where: "translation_key", page.translation_key | where: "lang", "en" %}
+	{% assign en_translation_page = en_translation_candidates | first %}
+	{% if en_translation_page %}
+		{% assign language_en_url = en_translation_page.url %}
 	{% endif %}
 {% endif %}
 {% assign nav_class = "scroll" %}
@@ -51,10 +48,22 @@
 				<li><a href="{{ header_page.url | relative_url }}">{{ header_page.title }}</a></li>
 			{% endfor %}
 			<li class="langSwitchItem">
-				<a class="langSwitchLink" href="{{ language_switch_url | relative_url }}">
-					<span class="langSwitchFlag" aria-hidden="true">{{ language_switch_flag }}</span>
-					<span class="langSwitchCode">{{ language_switch_label }}</span>
-				</a>
+				<details class="langPicker">
+					<summary class="langPickerToggle" aria-label="{% if header_lang == 'de' %}Sprache wählen{% else %}Select language{% endif %}">
+						<span class="langSwitchFlag" aria-hidden="true">🌐</span>
+					</summary>
+					<div class="langPickerMenu">
+						<div class="langPickerTitle">{% if header_lang == "de" %}Sprache{% else %}Language{% endif %}</div>
+						<a class="langPickerOption{% if header_lang == 'de' %} isActive{% endif %}" href="{{ language_de_url | relative_url }}"{% if header_lang == 'de' %} aria-current="page"{% endif %}>
+							<span class="langPickerOptionFlag" aria-hidden="true">🇩🇪</span>
+							<span>Deutsch</span>
+						</a>
+						<a class="langPickerOption{% if header_lang == 'en' %} isActive{% endif %}" href="{{ language_en_url | relative_url }}"{% if header_lang == 'en' %} aria-current="page"{% endif %}>
+							<span class="langPickerOptionFlag" aria-hidden="true">🇺🇸</span>
+							<span>English</span>
+						</a>
+					</div>
+				</details>
 			</li>
 		</ul>
 	</nav>

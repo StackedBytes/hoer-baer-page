@@ -95,6 +95,8 @@ header {
 	grid-area: h;
 	display: flex;
 	margin-right: -15px;
+	position: relative;
+	z-index: 40;
 }
 
 .logo {
@@ -158,10 +160,7 @@ header {
 	//margin-left: 15px;
 
 	white-space: nowrap;
-	overflow-x: auto;
-	overflow-y: hidden;
-	-webkit-overflow-scrolling: touch;
-	-ms-overflow-style: -ms-autohiding-scrollbar;
+	overflow: visible;
 }
 
 @media only screen and (max-width: 768px) {
@@ -182,11 +181,6 @@ header {
 	}
 	
 } 
-
-.scroll::-webkit-scrollbar {
-	display: none;
-}
-
 
 nav > ul {
 	color: #fff;
@@ -230,39 +224,105 @@ nav > ul li a:active {
 
 .langSwitchItem {
 	padding-left: 20px;
+	position: relative;
 }
 
-.langSwitchLink {
+.langPicker {
+	position: relative;
+}
+
+.langPickerToggle {
+	list-style: none;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: 8px;
-	min-width: 92px;
-	padding: 9px 14px;
+	width: 48px;
+	height: 42px;
+	padding: 0px;
 	border: 1px solid rgba($header-title-color, 0.45);
 	border-radius: 999px;
 	line-height: 1;
-	font-weight: 600;
+	cursor: pointer;
+	background-color: transparent;
+	transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.langPickerToggle::-webkit-details-marker {
+	display: none;
+}
+
+.langPickerToggle::marker {
+	content: "";
 }
 
 .langSwitchFlag {
-	font-size: 1.4rem;
+	font-size: 1.8rem;
 	line-height: 1;
 }
 
-.langSwitchCode {
-	letter-spacing: 0.04em;
-}
-
-nav > ul li a.langSwitchLink:link,
-nav > ul li a.langSwitchLink:visited {
-	color: rgba($header-title-color, 0.92);
-}
-
-nav > ul li a.langSwitchLink:hover,
-nav > ul li a.langSwitchLink:active {
-	color: rgba($header-title-color, 1);
+.langPicker[open] .langPickerToggle,
+.langPickerToggle:hover {
 	background-color: rgba($header-title-color, 0.12);
+	border-color: rgba($header-title-color, 0.75);
+}
+
+.langPickerMenu {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0px;
+	z-index: 120;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	min-width: 152px;
+	padding: 6px;
+	border: 1px solid rgba($header-title-color, 0.28);
+	border-radius: 12px;
+	background-color: rgba(#0b0f16, 0.94);
+	box-shadow: 0px 14px 26px rgba(#000, 0.24);
+}
+
+.langPickerTitle {
+	padding: 8px 10px 10px 10px;
+	font-size: 1.2rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(#fff, 0.68);
+}
+
+.langPickerOption {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 9px 10px;
+	border-radius: 8px;
+	font-size: 1.5rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+.langPickerOptionFlag {
+	font-size: 1.6rem;
+	line-height: 1;
+}
+
+nav > ul li a.langPickerOption:link,
+nav > ul li a.langPickerOption:visited {
+	color: rgba(#fff, 0.92);
+}
+
+nav > ul li a.langPickerOption:hover,
+nav > ul li a.langPickerOption:active {
+	color: rgba(#fff, 1);
+	background-color: rgba(#fff, 0.14);
+}
+
+nav > ul li a.langPickerOption.isActive:link,
+nav > ul li a.langPickerOption.isActive:visited {
+	color: rgba(#fff, 0.72);
+	background-color: rgba(#fff, 0.12);
+	pointer-events: none;
 }
 
 @media only screen and (max-width: 768px) {
@@ -271,15 +331,27 @@ nav > ul li a.langSwitchLink:active {
 		padding-left: 12px;
 	}
 
-	.langSwitchLink {
-		min-width: 84px;
-		padding: 8px 12px;
-		font-size: 1.4rem;
-		gap: 6px;
+	.langPickerToggle {
+		width: 44px;
+		height: 38px;
 	}
 
 	.langSwitchFlag {
-		font-size: 1.3rem;
+		font-size: 1.7rem;
+	}
+
+	.langPickerMenu {
+		min-width: 144px;
+		padding: 5px;
+	}
+
+	.langPickerOption {
+		padding: 8px 9px;
+		font-size: 1.4rem;
+	}
+
+	.langPickerTitle {
+		padding: 7px 9px 9px 9px;
 	}
 
 }
@@ -301,18 +373,40 @@ nav > ul li a.langSwitchLink:active {
 	color: rgba(#000, 1);
 }
 
-.subPageHeaderBackground .langSwitchLink {
+.subPageHeaderBackground .langPickerToggle {
 	border-color: rgba(#000, 0.24);
 }
 
-.subPageHeaderBackground nav > ul li a.langSwitchLink:link,
-.subPageHeaderBackground nav > ul li a.langSwitchLink:visited {
+.subPageHeaderBackground .langPicker[open] .langPickerToggle,
+.subPageHeaderBackground .langPickerToggle:hover {
+	background-color: rgba(#000, 0.08);
+	border-color: rgba(#000, 0.45);
+}
+
+.subPageHeaderBackground .langPickerMenu {
+	border-color: rgba(#000, 0.12);
+	background-color: #fff;
+	box-shadow: 0px 14px 24px rgba(#000, 0.14);
+}
+
+.subPageHeaderBackground .langPickerTitle {
+	color: rgba(#000, 0.52);
+}
+
+.subPageHeaderBackground nav > ul li a.langPickerOption:link,
+.subPageHeaderBackground nav > ul li a.langPickerOption:visited {
 	color: rgba(#000, 0.82);
 }
 
-.subPageHeaderBackground nav > ul li a.langSwitchLink:hover,
-.subPageHeaderBackground nav > ul li a.langSwitchLink:active {
+.subPageHeaderBackground nav > ul li a.langPickerOption:hover,
+.subPageHeaderBackground nav > ul li a.langPickerOption:active {
 	color: rgba(#000, 1);
+	background-color: rgba(#000, 0.08);
+}
+
+.subPageHeaderBackground nav > ul li a.langPickerOption.isActive:link,
+.subPageHeaderBackground nav > ul li a.langPickerOption.isActive:visited {
+	color: rgba(#000, 0.62);
 	background-color: rgba(#000, 0.08);
 }
 
