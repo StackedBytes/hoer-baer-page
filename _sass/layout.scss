@@ -29,7 +29,7 @@
 }
 
 .subPageHeaderBackground {
-	background-color: #fff;
+	background-color: rgba($header-color, $header-transparency);
 }
 
 .container {					// Set up the container for the site content
@@ -50,7 +50,7 @@
 
 .subPageContainer {
 	grid-template-rows: 115px auto auto auto;
-	background-color: #fff;
+	background-color: transparent;
 }
 
 @media only screen and (max-width: 768px) {
@@ -107,36 +107,16 @@ header {
 	margin-right: 30px;
 }
 
-// Slightly larger typography on the landing page only.
-body.homePage {
+// Shared typography scale across landing and content pages.
+nav > ul li a {
 	font-size: 2.1rem;
 }
 
-body.homePage h1 {
-	font-size: 3.3rem;
-}
-
-body.homePage h2 {
-	font-size: 2.2rem;
-}
-
-body.homePage h3 {
-	font-size: 2.2rem;
-}
-
-body.homePage .appDescriptionContainer {
-	font-size: 2.7rem;
-}
-
-body.homePage nav > ul li a {
-	font-size: 2.1rem;
-}
-
-body.homePage .langPickerTitle {
+.langPickerTitle {
 	font-size: 1.3rem;
 }
 
-body.homePage .langPickerOption {
+.langPickerOption {
 	font-size: 1.6rem;
 }
 
@@ -391,56 +371,110 @@ nav > ul li a.langPickerOption.isActive:visited {
 
 
 
-// Sub Page Header Styling
+// Subpage markdown content should inherit the same visual language as the landing page.
+.subPageBody .markdown-body {
+	font-size: 2.1rem;
+	line-height: 1.6;
+	color: rgba($feature-text-color, 0.96);
+}
+
+.subPageBody .markdown-body h1,
+.subPageBody .markdown-body h2,
+.subPageBody .markdown-body h3,
+.subPageBody .markdown-body h4,
+.subPageBody .markdown-body h5,
+.subPageBody .markdown-body h6 {
+	color: $feature-title-color;
+}
+
+.subPageBody .markdown-body h1 {
+	font-size: 3.3rem;
+}
+
+.subPageBody .markdown-body h2 {
+	font-size: 2.2rem;
+}
+
+.subPageBody .markdown-body h3 {
+	font-size: 2.2rem;
+}
+
+.subPageBody .markdown-body h4 {
+	font-size: 2rem;
+}
+
+.subPageBody .markdown-body h5 {
+	font-size: 1.8rem;
+}
+
+.subPageBody .markdown-body h6 {
+	font-size: 1.7rem;
+	color: rgba($feature-title-color, 0.78);
+}
+
+.subPageBody .markdown-body h1,
+.subPageBody .markdown-body h2 {
+	border-bottom-color: rgba($feature-title-color, 0.16);
+}
+
+.subPageBody .markdown-body p,
+.subPageBody .markdown-body li,
+.subPageBody .markdown-body td,
+.subPageBody .markdown-body th,
+.subPageBody .markdown-body blockquote {
+	color: rgba($feature-text-color, 0.96);
+}
+
+// Improve contrast on subpages where no hero image is present.
 .subPageHeaderBackground .headerName {
-	color: #000;
+	color: $feature-title-color;
 }
 
 .subPageHeaderBackground nav > ul li a:link,
 .subPageHeaderBackground nav > ul li a:visited {
-	color: rgba(#000, 0.6);
+	color: rgba($feature-title-color, 0.72);
 }
 
 .subPageHeaderBackground nav > ul li a:hover,
 .subPageHeaderBackground nav > ul li a:active {
-	color: rgba(#000, 1);
+	color: rgba($feature-title-color, 1);
 }
 
 .subPageHeaderBackground .langPickerToggle {
-	border-color: rgba(#000, 0.24);
+	border-color: rgba($feature-title-color, 0.24);
 }
 
 .subPageHeaderBackground .langPicker[open] .langPickerToggle,
 .subPageHeaderBackground .langPickerToggle:hover {
-	background-color: rgba(#000, 0.08);
-	border-color: rgba(#000, 0.45);
+	background-color: rgba($feature-title-color, 0.08);
+	border-color: rgba($feature-title-color, 0.45);
 }
 
 .subPageHeaderBackground .langPickerMenu {
-	border-color: rgba(#000, 0.12);
+	border-color: rgba($feature-title-color, 0.16);
 	background-color: #fff;
 	box-shadow: 0px 14px 24px rgba(#000, 0.14);
 }
 
 .subPageHeaderBackground .langPickerTitle {
-	color: rgba(#000, 0.52);
+	color: rgba($feature-title-color, 0.56);
 }
 
 .subPageHeaderBackground nav > ul li a.langPickerOption:link,
 .subPageHeaderBackground nav > ul li a.langPickerOption:visited {
-	color: rgba(#000, 0.82);
+	color: rgba($feature-title-color, 0.88);
 }
 
 .subPageHeaderBackground nav > ul li a.langPickerOption:hover,
 .subPageHeaderBackground nav > ul li a.langPickerOption:active {
-	color: rgba(#000, 1);
-	background-color: rgba(#000, 0.08);
+	color: rgba($feature-title-color, 1);
+	background-color: rgba($feature-title-color, 0.08);
 }
 
 .subPageHeaderBackground nav > ul li a.langPickerOption.isActive:link,
 .subPageHeaderBackground nav > ul li a.langPickerOption.isActive:visited {
-	color: rgba(#000, 0.62);
-	background-color: rgba(#000, 0.08);
+	color: rgba($feature-title-color, 0.62);
+	background-color: rgba($feature-title-color, 0.08);
 }
 
 
@@ -505,7 +539,7 @@ nav > ul li a.langPickerOption.isActive:visited {
 } 
 
 .appDescriptionContainer {
-	font-size: 2.5rem;
+	font-size: 2.7rem;
 	font-weight: normal;
 	width: 100%;
 	align-items: flex-start;

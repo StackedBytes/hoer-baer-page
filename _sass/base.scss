@@ -12,24 +12,24 @@ html {
 }
 
 body {
-	font-size: 2rem;
+	font-size: 2.1rem;
 	background-color: $body-color;
 }
 
 .subPageBody {
-	background-color: #fff;
+	background-color: $body-color;
 }
 
 h1 {
-	font-size: 3rem;
+	font-size: 3.3rem;
 }
 
 h2 {
-	font-size: 2rem;
+	font-size: 2.2rem;
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: 2.2rem;
 }
 
 // Better font rendering
