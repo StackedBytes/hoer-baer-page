@@ -660,9 +660,20 @@ nav > ul li a.langPickerOption.isActive:visited {
 	color: $app-description-color;
 }
 
+.appFootnote {
+	margin-top: 10px;
+	font-size: 1.6rem;
+	line-height: 1.35;
+	color: rgba($app-description-color, 0.86);
+}
+
 @media only screen and (max-width: 992px) {
 
 	.appDescription {
+		text-align: center;
+	}
+
+	.appFootnote {
 		text-align: center;
 	}
 	

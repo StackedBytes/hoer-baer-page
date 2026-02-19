@@ -56,6 +56,12 @@
                             <p class ="appDescription">
                                 {{ t.hero_subline | default: site.app_description }}
                             </p>
+                            {% assign hero_footnote = t.hero_footnote | default: "" %}
+                            {% if hero_footnote != "" %}
+                            <p class="appFootnote">
+                                {{ hero_footnote }}
+                            </p>
+                            {% endif %}
                         </div>
                         <div class="downloadButtonsContainer">
                             <a class="appStoreLink" href="{{ site.appstore_link }}" target="_blank" rel="noopener noreferrer" data-prefer-api="true">
