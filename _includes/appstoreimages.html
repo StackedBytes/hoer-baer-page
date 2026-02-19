@@ -62,11 +62,6 @@ $(function() {
             $headerName.text(appInfo.trackName);
         }
 
-        var $appPrice = $(".appPrice");
-        if (appInfo.formattedPrice && shouldFillText($appPrice)) {
-            $appPrice.text(appInfo.formattedPrice);
-        }
-
         var $appStoreLink = $(".appStoreLink");
         if (appInfo.trackViewUrl && shouldFillAttr($appStoreLink, "href")) {
             $appStoreLink.attr("href", appInfo.trackViewUrl);

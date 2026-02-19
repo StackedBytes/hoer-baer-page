@@ -455,12 +455,6 @@ nav > ul li a.langPickerOption.isActive:visited {
 	color: $app-title-color;
 }
 
-.appPrice {
-	color: $app-price-color;
-	font-weight: normal;
-	margin-top: 13px;
-}
-
 @media only screen and (max-width: 768px) {
 
 	.appNamePriceContainer {
@@ -474,12 +468,6 @@ nav > ul li a.langPickerOption.isActive:visited {
 		margin-top: 30px;
 		text-align: center;
 	}
-	
-	.appPrice {
-		margin-top: 13px;
-		text-align: center;
-	}
-	
 } 
 
 .appDescriptionContainer {
@@ -509,20 +497,9 @@ nav > ul li a.langPickerOption.isActive:visited {
 	margin-top: 42px;
 }
 
-.ctaNote {
-	color: $app-description-color;
-	font-size: 1.5rem;
-	line-height: 1.4;
-	margin-top: 14px;
-}
-
 @media only screen and (max-width: 992px) {
 
 	.downloadButtonsContainer {
-		text-align: center;
-	}
-
-	.ctaNote {
 		text-align: center;
 	}
 	

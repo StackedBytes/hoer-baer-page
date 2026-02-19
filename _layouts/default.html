@@ -51,9 +51,6 @@
                             <h1 class="appName" data-prefer-api="true">
                                 {{ t.hero_headline | default: site.app_name }}
                             </h1>
-                            <h2 class="appPrice" data-prefer-api="true">
-                                {{ t.app_price | default: site.app_price }}
-                            </h2>
                         </div>
                         <div class="appDescriptionContainer">
                             <p class ="appDescription">
@@ -64,7 +61,6 @@
                             <a class="appStoreLink" href="{{ site.appstore_link }}" target="_blank" rel="noopener noreferrer" data-prefer-api="true">
                                 <img class="appStore" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/{{ appstore_badge_locale }}?size=250x83" alt="{{ t.appstore_badge_alt | default: 'Download on the App Store' }}">
                             </a>
-                            <p class="ctaNote">{{ t.cta_note }}</p>
                         </div>
                     </div>
                     {% include features.html %}
