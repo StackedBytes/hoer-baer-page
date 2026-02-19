@@ -2,7 +2,12 @@
 
 <script>
 $(function() {
-    var apiURL = "https://itunes.apple.com/lookup?id={{ site.ios_app_id }}&country={{ site.ios_app_country }}&callback=?";
+    var preferredCountry = "{% if page.lang == 'de' %}de{% else %}us{% endif %}";
+    var fallbackCountry = "{{ site.ios_app_country | default: 'de' }}";
+
+    function lookupURL(countryCode) {
+        return "https://itunes.apple.com/lookup?id={{ site.ios_app_id }}&country=" + encodeURIComponent(countryCode) + "&callback=?";
+    }
 
     function prefersApi($element) {
         return String($element.data("preferApi")) === "true";
@@ -20,55 +25,80 @@ $(function() {
         return prefersApi($element) || normalized($element.attr(attributeName)).length === 0;
     }
 
-    $.getJSON(apiURL)
+    function firstResult(json) {
+        if (json && json.results && json.results.length) {
+            return json.results[0];
+        }
+        return null;
+    }
+
+    function applyAppInfo(appInfo) {
+        if (appInfo.artworkUrl512) {
+            $('link[rel="shortcut icon"]').attr("href", appInfo.artworkUrl512);
+        }
+
+        var $pageTitle = $(".pageTitle");
+        if (appInfo.trackName && shouldFillText($pageTitle)) {
+            $pageTitle.text(appInfo.trackName);
+        }
+
+        var $appIconLarge = $(".appIconLarge");
+        if (appInfo.artworkUrl512 && shouldFillAttr($appIconLarge, "src")) {
+            $appIconLarge.attr("src", appInfo.artworkUrl512);
+        }
+
+        var $appIconHeader = $(".headerIcon");
+        if (appInfo.artworkUrl512 && shouldFillAttr($appIconHeader, "src")) {
+            $appIconHeader.attr("src", appInfo.artworkUrl512);
+        }
+
+        var $appName = $(".appName");
+        if (appInfo.trackName && shouldFillText($appName)) {
+            $appName.text(appInfo.trackName);
+        }
+
+        var $headerName = $(".headerName");
+        if (appInfo.trackName && shouldFillText($headerName)) {
+            $headerName.text(appInfo.trackName);
+        }
+
+        var $appPrice = $(".appPrice");
+        if (appInfo.formattedPrice && shouldFillText($appPrice)) {
+            $appPrice.text(appInfo.formattedPrice);
+        }
+
+        var $appStoreLink = $(".appStoreLink");
+        if (appInfo.trackViewUrl && shouldFillAttr($appStoreLink, "href")) {
+            $appStoreLink.attr("href", appInfo.trackViewUrl);
+        }
+    }
+
+    function requestCountry(countryCode) {
+        return $.getJSON(lookupURL(countryCode));
+    }
+
+    function loadFallbackIfNeeded() {
+        if (fallbackCountry && fallbackCountry !== preferredCountry) {
+            requestCountry(fallbackCountry).done(function(fallbackJson) {
+                var fallbackInfo = firstResult(fallbackJson);
+                if (fallbackInfo) {
+                    applyAppInfo(fallbackInfo);
+                }
+            });
+        }
+    }
+
+    requestCountry(preferredCountry)
         .done(function(json) {
-            if (!(json.results && json.results.length)) {
+            var appInfo = firstResult(json);
+            if (appInfo) {
+                applyAppInfo(appInfo);
                 return;
             }
-
-            var appInfo = json.results[0];
-
-            if (appInfo.artworkUrl512) {
-                $('link[rel="shortcut icon"]').attr("href", appInfo.artworkUrl512);
-            }
-
-            var $pageTitle = $(".pageTitle");
-            if (appInfo.trackName && shouldFillText($pageTitle)) {
-                $pageTitle.text(appInfo.trackName);
-            }
-
-            var $appIconLarge = $(".appIconLarge");
-            if (appInfo.artworkUrl512 && shouldFillAttr($appIconLarge, "src")) {
-                $appIconLarge.attr("src", appInfo.artworkUrl512);
-            }
-
-            var $appIconHeader = $(".headerIcon");
-            if (appInfo.artworkUrl512 && shouldFillAttr($appIconHeader, "src")) {
-                $appIconHeader.attr("src", appInfo.artworkUrl512);
-            }
-
-            var $appName = $(".appName");
-            if (appInfo.trackName && shouldFillText($appName)) {
-                $appName.text(appInfo.trackName);
-            }
-
-            var $headerName = $(".headerName");
-            if (appInfo.trackName && shouldFillText($headerName)) {
-                $headerName.text(appInfo.trackName);
-            }
-
-            var $appPrice = $(".appPrice");
-            if (appInfo.formattedPrice && shouldFillText($appPrice)) {
-                $appPrice.text(appInfo.formattedPrice);
-            }
-
-            var $appStoreLink = $(".appStoreLink");
-            if (appInfo.trackViewUrl && shouldFillAttr($appStoreLink, "href")) {
-                $appStoreLink.attr("href", appInfo.trackViewUrl);
-            }
+            loadFallbackIfNeeded();
         })
         .fail(function() {
-            // Keep configured fallback values when App Store lookup is unavailable.
+            loadFallbackIfNeeded();
         });
 });
 
