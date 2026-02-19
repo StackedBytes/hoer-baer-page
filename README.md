@@ -59,7 +59,7 @@ Things you can customise in `_config.yml`:
 ### Step 3: Add screenshot or video
 
 #### Adding a screenshot
-Upload a `.png` or `.jpg` of your app to the folder `assets/screenshot/`. The name does not matter. Be sure to delete the placeholder `yourscreenshot.png`.
+Upload a `.png` or `.jpg` of your app to the folder `assets/screenshot/`. The name does not matter.
 
 #### Adding video
 Upload your video to the folder `assets/videos/`. To have support for most browsers, you need to upload two files – one for Safari and one for Chrome/Firefox.

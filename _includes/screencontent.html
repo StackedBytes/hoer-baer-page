@@ -9,10 +9,10 @@
 {% endfor %}
 
 {% for file in site.static_files %}
-	{% if file.path contains "assets/screenshot/" and file.name != "yourscreenshot.png" and primary_screenshot == "" %}
+	{% if file.path contains "assets/screenshot/" and primary_screenshot == "" %}
 		{% assign primary_screenshot = file.path %}
 	{% endif %}
-	{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" %}
+	{% if file.path contains "assets/videos/" %}
 		{% if file.extname == ".mp4" or file.extname == ".mov" or file.extname == ".webm" or file.extname == ".ogg" %}
 			{% assign has_video = true %}
 		{% endif %}
@@ -30,19 +30,19 @@ $(function() {
 		$videoContainer.removeClass("hidden");
 
 		{% for file in site.static_files %}
-			{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" and (file.extname == ".mp4" or file.extname == ".mov") %}
+			{% if file.path contains "assets/videos/" and (file.extname == ".mp4" or file.extname == ".mov") %}
 				$video.append('<source src="{{ file.path | relative_url }}" type="video/mp4">');
 			{% endif %}
 		{% endfor %}
 
 		{% for file in site.static_files %}
-			{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" and file.extname == ".webm" %}
+			{% if file.path contains "assets/videos/" and file.extname == ".webm" %}
 				$video.append('<source src="{{ file.path | relative_url }}" type="video/webm">');
 			{% endif %}
 		{% endfor %}
 
 		{% for file in site.static_files %}
-			{% if file.path contains "assets/videos/" and file.name != "Place-video-files-here.txt" and file.extname == ".ogg" %}
+			{% if file.path contains "assets/videos/" and file.extname == ".ogg" %}
 				$video.append('<source src="{{ file.path | relative_url }}" type="video/ogg">');
 			{% endif %}
 		{% endfor %}
