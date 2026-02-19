@@ -1,5 +1,5 @@
-{% assign footer_lang = page.lang | default: "de" %}
-{% assign footer_i18n = site.data.i18n[footer_lang].footer | default: site.data.i18n.de.footer %}
+{% assign footer_lang = page.lang | default: "en" %}
+{% assign footer_i18n = site.data.i18n[footer_lang].footer | default: site.data.i18n.en.footer %}
 <footer>
 	{% if site.your_name %}
 	<p class="footerText">{{ footer_i18n.built_by | default: "Entwickelt von" }} {% if site.your_link %}<a href="{{ site.your_link }}" target="_blank" rel="noopener noreferrer">{% endif %}{{ site.your_name }}{% if site.your_link %}</a>{% endif %}{% if site.your_city %} in {{ site.your_city }}{% endif %}</p>
@@ -80,11 +80,11 @@
 
 	</div>
 	<div class="footerLinks">
-		<a href="{{ '/changelog/' | relative_url }}">{{ footer_i18n.changelog | default: "Neuigkeiten" }}</a>
-		<a href="{{ '/privacypolicy/' | relative_url }}">{{ footer_i18n.privacy | default: "Datenschutzerklärung" }}</a>
-		<a href="{{ '/termsofservice/' | relative_url }}">{{ footer_i18n.terms | default: "AGB" }}</a>
+		<a href="{{ '/de/changelog/' | relative_url }}">{{ footer_i18n.changelog | default: "Neuigkeiten" }}</a>
+		<a href="{{ '/de/privacypolicy/' | relative_url }}">{{ footer_i18n.privacy | default: "Datenschutzerklärung" }}</a>
+		<a href="{{ '/de/termsofservice/' | relative_url }}">{{ footer_i18n.terms | default: "AGB" }}</a>
 		{% if footer_lang == "en" %}
-			<a href="{{ '/en/legal/' | relative_url }}">{{ footer_i18n.legal_note | default: "Legal notice" }}</a>
+			<a href="{{ '/legal/' | relative_url }}">{{ footer_i18n.legal_note | default: "Legal notice" }}</a>
 		{% endif %}
 	</div>
 </footer>

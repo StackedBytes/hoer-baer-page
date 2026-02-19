@@ -1,9 +1,9 @@
 <head>
-	{% assign current_lang = page.lang | default: "de" %}
-	{% assign t = site.data.i18n[current_lang] | default: site.data.i18n.de %}
-	{% assign og_locale = "de_DE" %}
-	{% if current_lang == "en" %}
-		{% assign og_locale = "en_US" %}
+	{% assign current_lang = page.lang | default: "en" %}
+	{% assign t = site.data.i18n[current_lang] | default: site.data.i18n.en %}
+	{% assign og_locale = "en_US" %}
+	{% if current_lang == "de" %}
+		{% assign og_locale = "de_DE" %}
 	{% endif %}
 	{% assign default_title = t.page_title | default: site.page_title %}
 	{% assign page_title_text = page.page_title | default: page.title | default: default_title %}
@@ -20,9 +20,9 @@
 	<meta name="theme-color" content="{{ site.topbar_color }}">
 
 	<link rel="canonical" href="{{ canonical_url }}">
-	{% if page.url == "/" or page.url == "/en/" %}
-		<link rel="alternate" hreflang="de" href="{{ '/' | absolute_url }}">
-		<link rel="alternate" hreflang="en" href="{{ '/en/' | absolute_url }}">
+	{% if page.url == "/" or page.url == "/de/" %}
+		<link rel="alternate" hreflang="en" href="{{ '/' | absolute_url }}">
+		<link rel="alternate" hreflang="de" href="{{ '/de/' | absolute_url }}">
 		<link rel="alternate" hreflang="x-default" href="{{ '/' | absolute_url }}">
 	{% endif %}
 
@@ -32,7 +32,7 @@
 	<meta property="og:url" content="{{ canonical_url }}">
 	<meta property="og:image" content="{{ og_image }}">
 	<meta property="og:locale" content="{{ og_locale }}">
-	{% if page.url == "/" or page.url == "/en/" %}
+	{% if page.url == "/" or page.url == "/de/" %}
 		<meta property="og:locale:alternate" content="{% if current_lang == 'de' %}en_US{% else %}de_DE{% endif %}">
 	{% endif %}
 

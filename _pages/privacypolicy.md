@@ -2,6 +2,8 @@
 layout: page
 title: Datenschutzerklärung
 include_in_header: false
+lang: de
+permalink: /de/privacypolicy/
 ---
 
 # Datenschutzerklärung

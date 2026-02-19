@@ -2,6 +2,8 @@
 layout: page
 title: Neuigkeiten
 include_in_header: false
+lang: de
+permalink: /de/changelog/
 ---
 
 # Versionshinweise

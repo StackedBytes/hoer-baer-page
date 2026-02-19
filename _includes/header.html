@@ -1,17 +1,26 @@
-{% assign header_lang = page.lang | default: "de" %}
-{% assign header_texts = site.data.i18n[header_lang] | default: site.data.i18n.de %}
+{% assign header_lang = page.lang | default: "en" %}
+{% assign header_texts = site.data.i18n[header_lang] | default: site.data.i18n.en %}
 {% assign home_url = "/" %}
-{% if header_lang == "en" %}
-	{% assign home_url = "/en/" %}
+{% if header_lang == "de" %}
+	{% assign home_url = "/de/" %}
 {% endif %}
-{% assign header_pages = site.pages | where: "include_in_header", true %}
-{% assign language_switch_url = "/en/" %}
-{% assign language_switch_label = "EN" %}
-{% assign language_switch_flag = "🇬🇧" %}
-{% if header_lang == "en" %}
+{% assign header_pages = site.pages | where: "include_in_header", true | where: "lang", header_lang %}
+{% assign language_target_lang = "de" %}
+{% assign language_switch_url = "/de/" %}
+{% assign language_switch_label = "DE" %}
+{% assign language_switch_flag = "🇩🇪" %}
+{% if header_lang == "de" %}
+	{% assign language_target_lang = "en" %}
 	{% assign language_switch_url = "/" %}
-	{% assign language_switch_label = "DE" %}
-	{% assign language_switch_flag = "🇩🇪" %}
+	{% assign language_switch_label = "EN" %}
+	{% assign language_switch_flag = "🇬🇧" %}
+{% endif %}
+{% if page.translation_key %}
+	{% assign translation_candidates = site.pages | where: "translation_key", page.translation_key | where: "lang", language_target_lang %}
+	{% assign translation_page = translation_candidates | first %}
+	{% if translation_page %}
+		{% assign language_switch_url = translation_page.url %}
+	{% endif %}
 {% endif %}
 {% assign nav_class = "scroll" %}
 {% if header_pages.size == 0 %}

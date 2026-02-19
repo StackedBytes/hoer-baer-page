@@ -2,6 +2,8 @@
 layout: page
 title: AGB
 include_in_header: false
+lang: de
+permalink: /de/termsofservice/
 ---
 
 # AGB zur Nutzung der „HörBär"-App

@@ -1,5 +1,6 @@
 ---
 layout: default
-lang: en
+lang: de
 translation_key: home
+permalink: /de/
 ---
