@@ -52,6 +52,43 @@
 	{% endif %}
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script>
+		(function () {
+			var storageKey = "hb_lang_pref";
+			var params = new URLSearchParams(window.location.search);
+			var requestedLang = params.get("lang");
+
+			if (requestedLang === "de" || requestedLang === "en") {
+				localStorage.setItem(storageKey, requestedLang);
+				params.delete("lang");
+				var cleanedQuery = params.toString();
+				var cleanedUrl = window.location.pathname + (cleanedQuery ? "?" + cleanedQuery : "") + window.location.hash;
+				window.history.replaceState({}, "", cleanedUrl);
+			}
+
+			if (window.location.pathname !== "/") {
+				return;
+			}
+
+			var preferredLang = localStorage.getItem(storageKey);
+			if (preferredLang === "de") {
+				window.location.replace("{{ '/de/' | relative_url }}");
+				return;
+			}
+			if (preferredLang === "en") {
+				return;
+			}
+
+			var browserLanguages = navigator.languages || [navigator.language || ""];
+			var hasGermanLocale = browserLanguages.some(function (languageTag) {
+				return /^de($|-)/i.test(languageTag || "");
+			});
+
+			if (hasGermanLocale) {
+				window.location.replace("{{ '/de/' | relative_url }}");
+			}
+		})();
+	</script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ '/main.css' | relative_url }}">
 </head>

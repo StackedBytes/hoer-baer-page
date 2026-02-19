@@ -53,11 +53,11 @@
 					</summary>
 					<div class="langPickerMenu">
 						<div class="langPickerTitle">{% if header_lang == "de" %}Sprache{% else %}Language{% endif %}</div>
-						<a class="langPickerOption{% if header_lang == 'de' %} isActive{% endif %}" href="{{ language_de_url | relative_url }}"{% if header_lang == 'de' %} aria-current="page"{% endif %}>
+						<a class="langPickerOption{% if header_lang == 'de' %} isActive{% endif %}" href="{{ language_de_url | relative_url }}?lang=de"{% if header_lang == 'de' %} aria-current="page"{% endif %}>
 							<span class="langPickerOptionFlag" aria-hidden="true">🇩🇪</span>
 							<span>Deutsch</span>
 						</a>
-						<a class="langPickerOption{% if header_lang == 'en' %} isActive{% endif %}" href="{{ language_en_url | relative_url }}"{% if header_lang == 'en' %} aria-current="page"{% endif %}>
+						<a class="langPickerOption{% if header_lang == 'en' %} isActive{% endif %}" href="{{ language_en_url | relative_url }}?lang=en"{% if header_lang == 'en' %} aria-current="page"{% endif %}>
 							<span class="langPickerOptionFlag" aria-hidden="true">🇺🇸</span>
 							<span>English</span>
 						</a>
