@@ -8,7 +8,7 @@ translation_key: changelog
 ---
 
 # Release Notes
-Here are the latest changes and improvements for the HoerBaer app. This page is updated automatically from the App Store.
+Here are the latest changes and improvements for the HoerBaer app.
 
 {% assign releases = site.data.releases.releases.en %}
 {% if releases and releases.size > 0 %}

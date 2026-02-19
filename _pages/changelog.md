@@ -8,7 +8,7 @@ translation_key: changelog
 ---
 
 # Versionshinweise
-Hier findest du aktuelle Änderungen und Verbesserungen der HörBär-App. Diese Seite wird automatisch aus dem App Store aktualisiert.
+Hier findest du aktuelle Änderungen und Verbesserungen der HörBär-App.
 
 {% assign releases = site.data.releases.releases.de %}
 {% if releases and releases.size > 0 %}
