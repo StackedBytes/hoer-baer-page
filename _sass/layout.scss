@@ -107,6 +107,39 @@ header {
 	margin-right: 30px;
 }
 
+// Slightly larger typography on the landing page only.
+body.homePage {
+	font-size: 2.1rem;
+}
+
+body.homePage h1 {
+	font-size: 3.3rem;
+}
+
+body.homePage h2 {
+	font-size: 2.2rem;
+}
+
+body.homePage h3 {
+	font-size: 2.2rem;
+}
+
+body.homePage .appDescriptionContainer {
+	font-size: 2.7rem;
+}
+
+body.homePage nav > ul li a {
+	font-size: 2.1rem;
+}
+
+body.homePage .langPickerTitle {
+	font-size: 1.3rem;
+}
+
+body.homePage .langPickerOption {
+	font-size: 1.6rem;
+}
+
 .headerName {
 	color: $header-title-color;
 	white-space: nowrap;
@@ -756,7 +789,7 @@ footer {
 	width: 100%;
 	text-align: center;
 	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-bottom: 24px;
 }
 
 .footerIcons {
@@ -811,7 +844,7 @@ footer {
 		width: 100%;
 		text-align: center;
 		padding-top: 54px;
-		padding-bottom: 61px;
+		padding-bottom: 24px;
 	}
 	
 	.footerIcons {
