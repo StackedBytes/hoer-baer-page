@@ -2,7 +2,7 @@
 {% assign has_video = false %}
 
 {% for file in site.static_files %}
-	{% if file.path contains "assets/screenshot/" and file.name == "hero-de-0.jpg" %}
+	{% if file.path contains "assets/screenshot/" and (file.name == "hero-de-0.png" or file.name == "hero-de-0.jpg") %}
 		{% assign primary_screenshot = file.path %}
 		{% break %}
 	{% endif %}
