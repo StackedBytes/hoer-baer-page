@@ -10,14 +10,9 @@ permalink: /de/termsofservice/
 
 Die „HörBär"-Applikation (im Folgenden „App") ist eine Software, die vom Anbieter Benjamin Rudhart als iOS/iPadOS Anwendung für private Endkunden konzipiert wurde.
 
-## Anbieter und Geltungsbereich
+## Geltungsbereich
 
-**Anbieter:** Benjamin Rudhart  
-**Adresse:** Burgstaller Str. 2, 8143 Dobl (Österreich)  
-**E-Mail:** support@hoerbaer.app  
-**UID-Nr.:** ATU78965657
-
-Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für jede Nutzung der App durch Privatkunden. Privatkunde ist jede natürliche Person, die nicht im Rahmen einer gewerblichen oder selbständig beruflichen Tätigkeit, oder als Stellvertreter für juristische Personen tätig ist und den digitalen Service der App auf ihrem iPhone und/oder iPad in Anspruch nimmt (im Folgenden „Nutzer").
+Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für jede Nutzung der App durch Privatkunden. Privatkunde ist jede natürliche Person, die nicht im Rahmen einer gewerblichen oder selbständig beruflichen Tätigkeit, oder als Stellvertreter für juristische Personen tätig ist und den digitalen Service der App auf ihrem iOS- und/oder iPadOS-Gerät in Anspruch nimmt (im Folgenden „Nutzer").
 
 ## Angebot und Vertragsabschluss
 
@@ -55,7 +50,7 @@ Gemäß der Weiterentwicklung im Bereich technischer Möglichkeiten und der Anfo
 
 Der Anbieter kann die jederzeitige Verfügbarkeit der App nicht garantieren. Insbesondere weist der Anbieter darauf hin, dass es möglich ist, dass die App im Rahmen von Fehlerbehebungen, Aktualisierungen, Wartungsarbeiten und/ oder anderweitigen Ausführungen die App temporär nicht zur Verfügung steht.
 
-Auch ist der Anbieter explizit nicht für Ausfälle oder Unzugänglichkeit der App verantwortlich, die nicht durch ihn verschuldet sind. Hierunter fallen insbesondere, aber nicht ausschließlich Hacker Angriffe, Viren, Trojaner und sonstige Schädlingssoftware auf dem iPhone des Nutzers, sofern diese nicht von der angebotenen App ausgehen oder durch diese verursacht werden.
+Auch ist der Anbieter explizit nicht für Ausfälle oder Unzugänglichkeit der App verantwortlich, die nicht durch ihn verschuldet sind. Hierunter fallen insbesondere, aber nicht ausschließlich Hacker Angriffe, Viren, Trojaner und sonstige Schädlingssoftware auf dem Endgerät des Nutzers, sofern diese nicht von der angebotenen App ausgehen oder durch diese verursacht werden.
 
 ## Sicherung von Inhalten
 
