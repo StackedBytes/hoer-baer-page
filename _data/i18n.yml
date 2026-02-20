@@ -32,7 +32,7 @@ de:
     changelog: "Neuigkeiten"
     privacy: "Datenschutzerklärung"
     terms: "AGB"
-    legal_note: "Rechtlicher Hinweis (EN)"
+    imprint: "Impressum"
     switch_language: "English"
 
 en:
@@ -67,7 +67,7 @@ en:
   footer:
     built_by: "Built by"
     changelog: "Changelog"
-    privacy: "Privacy Policy (German)"
-    terms: "Terms (German)"
-    legal_note: "Legal notice"
+    privacy: "Privacy Policy"
+    terms: "Terms and Conditions"
+    imprint: "Imprint"
     switch_language: "Deutsch"
