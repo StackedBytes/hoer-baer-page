@@ -8,7 +8,7 @@ permalink: /de/termsofservice/
 
 # AGB zur Nutzung der „HörBär"-App
 
-Die „HörBär"-Applikation (im Folgenden „App") ist eine Software, die vom Anbieter Benjamin Rudhart als iPhone-Anwendung für private Endkunden konzipiert wurde.
+Die „HörBär"-Applikation (im Folgenden „App") ist eine Software, die vom Anbieter Benjamin Rudhart als iOS/iPadOS Anwendung für private Endkunden konzipiert wurde.
 
 ## Anbieter und Geltungsbereich
 
