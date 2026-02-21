@@ -24,6 +24,22 @@ Designed for GitHub Pages for super easy set up.
 
 ## Quick Start
 
+## Project Build Workflow (Localized Pages)
+
+This project generates localized page stubs from `_data/page_locales.yml` before building.
+
+- Local build:
+  - `./scripts/generate-localized-pages.sh`
+  - `ruby ./scripts/check_i18n.rb`
+  - `bundle exec jekyll build`
+- Local dev server:
+  - `./scripts/generate-localized-pages.sh`
+  - `bundle exec jekyll serve --livereload`
+
+Deployment is automated with `.github/workflows/deploy-pages.yml` and runs generation and i18n checks before `jekyll build`.
+
+Important: In repository settings, set **GitHub Pages** source to **GitHub Actions**.
+
 ### Step 1: Fork this repo.
 After forking the repo, your site will be live immediately on your personal Github Pages account, e.g. `https://yourusername.github.io/your-repo-name/`.
 

@@ -1,0 +1,57 @@
+privacypolicy:
+  de:
+    permalink: "/de/privacypolicy/"
+    title: "Datenschutzerklärung"
+    page_title: "Datenschutzerklärung | HörBär"
+    meta_description: "Datenschutzerklärung der HörBär-App mit Informationen zu Datenverarbeitung, TelemetryDeck und Betroffenenrechten."
+    include: "localized-pages/privacypolicy/de.md"
+  en:
+    permalink: "/privacypolicy/"
+    title: "Privacy Policy"
+    page_title: "Privacy Policy | HoerBaer"
+    meta_description: "Privacy Policy for the HoerBaer app including data processing, TelemetryDeck analytics, and data subject rights."
+    include: "localized-pages/privacypolicy/en.md"
+
+termsofservice:
+  de:
+    permalink: "/de/termsofservice/"
+    title: "AGB"
+    page_title: "AGB | HörBär"
+    meta_description: "Allgemeine Geschäftsbedingungen für die Nutzung der HörBär-App inklusive Leistungen, Verfügbarkeit und Zahlungsbedingungen."
+    include: "localized-pages/termsofservice/de.md"
+  en:
+    permalink: "/termsofservice/"
+    title: "Terms and Conditions"
+    page_title: "Terms and Conditions | HoerBaer"
+    meta_description: "Terms and Conditions for using the HoerBaer app, including services, availability, and payment terms."
+    include: "localized-pages/termsofservice/en.md"
+
+imprint:
+  de:
+    permalink: "/de/impressum/"
+    title: "Impressum"
+    page_title: "Impressum | HörBär"
+    meta_description: "Impressum und Anbieterangaben für die HörBär-App gemäß ECG."
+    include: "localized-pages/imprint/de.md"
+  en:
+    permalink: "/imprint/"
+    title: "Imprint"
+    page_title: "Imprint | HoerBaer"
+    meta_description: "Imprint and provider information for the HoerBaer app in accordance with Austrian ECG requirements."
+    include: "localized-pages/imprint/en.md"
+
+changelog:
+  de:
+    permalink: "/de/changelog/"
+    title: "Neuigkeiten"
+    page_title: "Neuigkeiten | HörBär"
+    meta_description: "Versionshinweise und aktuelle Änderungen der HörBär-App."
+    include_in_header: false
+    include: "localized-pages/changelog/de.md"
+  en:
+    permalink: "/changelog/"
+    title: "Changelog"
+    page_title: "Changelog | HoerBaer"
+    meta_description: "Release notes and recent updates for the HoerBaer app."
+    include_in_header: false
+    include: "localized-pages/changelog/en.md"

@@ -1,24 +1,27 @@
-{% assign header_lang = page.lang | default: "en" %}
-{% assign header_texts = site.data.i18n[header_lang] | default: site.data.i18n.en %}
+{% assign locale_config = site.data.locales %}
+{% assign default_locale_code = locale_config.default_locale | default: "en" %}
+{% assign supported_locales = locale_config.locales %}
+{% assign locale_order = locale_config.order %}
+{% assign header_lang_raw = page.lang | default: default_locale_code %}
+{% assign header_lang = header_lang_raw %}
+{% unless supported_locales[header_lang] %}
+	{% for locale_item in supported_locales %}
+		{% assign locale_code = locale_item[0] %}
+		{% assign locale_data = locale_item[1] %}
+		{% if locale_data.bcp47 == header_lang_raw %}
+			{% assign header_lang = locale_code %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+{% endunless %}
+{% assign current_locale = supported_locales[header_lang] | default: supported_locales[default_locale_code] %}
+{% assign header_texts = site.data.i18n[header_lang] | default: site.data.i18n[default_locale_code] %}
 {% assign home_url = "/" %}
-{% if header_lang == "de" %}
-	{% assign home_url = "/de/" %}
+{% assign current_prefix = current_locale.path_prefix | default: "" %}
+{% if current_prefix != "" and current_prefix != "/" %}
+	{% assign home_url = current_prefix | append: "/" %}
 {% endif %}
 {% assign header_pages = site.pages | where: "include_in_header", true | where: "lang", header_lang %}
-{% assign language_en_url = "/" %}
-{% assign language_de_url = "/de/" %}
-{% if page.translation_key %}
-	{% assign de_translation_candidates = site.pages | where: "translation_key", page.translation_key | where: "lang", "de" %}
-	{% assign de_translation_page = de_translation_candidates | first %}
-	{% if de_translation_page %}
-		{% assign language_de_url = de_translation_page.url %}
-	{% endif %}
-	{% assign en_translation_candidates = site.pages | where: "translation_key", page.translation_key | where: "lang", "en" %}
-	{% assign en_translation_page = en_translation_candidates | first %}
-	{% if en_translation_page %}
-		{% assign language_en_url = en_translation_page.url %}
-	{% endif %}
-{% endif %}
 {% assign nav_class = "scroll" %}
 {% if header_pages.size == 0 %}
 	{% assign nav_class = "scroll languageOnly" %}
@@ -44,23 +47,41 @@
 	<nav class="{{ nav_class }}">
 		<ul>
 			{% for header_page in header_pages %}
-				<li><a href="{{ header_page.url | relative_url }}">{{ header_page.title }}</a></li>
+				<li><a {% if header_page.nav_style == "button" %}class="navButtonLink"{% endif %} href="{{ header_page.url | relative_url }}">{{ header_page.title }}</a></li>
 			{% endfor %}
 			<li class="langSwitchItem">
 				<details class="langPicker">
-					<summary class="langPickerToggle" aria-label="{% if header_lang == 'de' %}Sprache wählen{% else %}Select language{% endif %}">
+					<summary class="langPickerToggle" aria-label="{{ header_texts.language_picker_aria | default: 'Select language' }}">
 						<i class="fas fa-globe langSwitchFlag" aria-hidden="true"></i>
 					</summary>
 					<div class="langPickerMenu">
-						<div class="langPickerTitle">{% if header_lang == "de" %}Sprache{% else %}Language{% endif %}</div>
-						<a class="langPickerOption{% if header_lang == 'de' %} isActive{% endif %}" href="{{ language_de_url | relative_url }}?lang=de"{% if header_lang == 'de' %} aria-current="page"{% endif %}>
-							<span class="langPickerOptionFlag" aria-hidden="true">🇩🇪</span>
-							<span>Deutsch</span>
-						</a>
-						<a class="langPickerOption{% if header_lang == 'en' %} isActive{% endif %}" href="{{ language_en_url | relative_url }}?lang=en"{% if header_lang == 'en' %} aria-current="page"{% endif %}>
-							<span class="langPickerOptionFlag" aria-hidden="true">🇺🇸</span>
-							<span>English</span>
-						</a>
+						<div class="langPickerTitle">{{ header_texts.language_picker_title | default: "Language" }}</div>
+						{% for locale_code in locale_order %}
+							{% assign locale_data = supported_locales[locale_code] %}
+							{% if locale_data %}
+								{% assign locale_url = "/" %}
+								{% assign locale_prefix = locale_data.path_prefix | default: "" %}
+								{% if locale_prefix != "" and locale_prefix != "/" %}
+									{% assign locale_url = locale_prefix | append: "/" %}
+								{% endif %}
+								{% if page.translation_key %}
+									{% assign translation_candidates = site.pages | where: "translation_key", page.translation_key | where: "lang", locale_code %}
+									{% if translation_candidates.size == 0 %}
+										{% assign translation_candidates = site.html_pages | where: "translation_key", page.translation_key | where: "lang", locale_code %}
+									{% endif %}
+									{% assign translation_page = translation_candidates | first %}
+									{% if translation_page %}
+										{% assign locale_url = translation_page.url %}
+									{% endif %}
+								{% endif %}
+								<a class="langPickerOption{% if header_lang == locale_code %} isActive{% endif %}" href="{{ locale_url | relative_url }}?lang={{ locale_code }}"{% if header_lang == locale_code %} aria-current="page"{% endif %}>
+									{% if locale_data.switch_flag %}
+										<span class="langPickerOptionFlag" aria-hidden="true">{{ locale_data.switch_flag }}</span>
+									{% endif %}
+									<span>{{ locale_data.native_name | default: locale_code }}</span>
+								</a>
+							{% endif %}
+						{% endfor %}
 					</div>
 				</details>
 			</li>

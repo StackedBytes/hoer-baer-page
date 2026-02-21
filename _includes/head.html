@@ -1,13 +1,47 @@
 <head>
-	{% assign current_lang = page.lang | default: "en" %}
-	{% assign t = site.data.i18n[current_lang] | default: site.data.i18n.en %}
-	{% assign og_locale = "en_US" %}
-	{% if current_lang == "de" %}
-		{% assign og_locale = "de_DE" %}
+	{% assign locale_config = site.data.locales %}
+	{% assign default_locale_code = locale_config.default_locale | default: "en" %}
+	{% assign supported_locales = locale_config.locales %}
+	{% assign locale_order = locale_config.order %}
+	{% assign current_lang_raw = page.lang | default: default_locale_code %}
+	{% assign current_lang = current_lang_raw %}
+	{% unless supported_locales[current_lang] %}
+		{% for locale_item in supported_locales %}
+			{% assign locale_code = locale_item[0] %}
+			{% assign locale_data = locale_item[1] %}
+			{% if locale_data.bcp47 == current_lang_raw %}
+				{% assign current_lang = locale_code %}
+				{% break %}
+			{% endif %}
+		{% endfor %}
+	{% endunless %}
+	{% assign current_locale = supported_locales[current_lang] | default: supported_locales[default_locale_code] %}
+	{% assign t = site.data.i18n[current_lang] | default: site.data.i18n[default_locale_code] %}
+	{% assign og_locale = current_locale.og_locale %}
+	{% unless og_locale %}
+		{% assign current_bcp47 = current_locale.bcp47 | default: current_lang %}
+		{% if current_bcp47 contains "-" %}
+			{% assign current_lang_parts = current_bcp47 | split: "-" %}
+			{% if current_lang_parts.size == 2 %}
+				{% assign og_locale = current_lang_parts[0] | downcase | append: "_" | append: current_lang_parts[1] | upcase %}
+			{% endif %}
+		{% endif %}
+	{% endunless %}
+	{% assign translation_pages = "" | split: "" %}
+	{% if page.translation_key %}
+		{% assign translation_pages = site.pages | where: "translation_key", page.translation_key %}
+		{% if translation_pages.size == 0 %}
+			{% assign translation_pages = site.html_pages | where: "translation_key", page.translation_key %}
+		{% endif %}
+	{% endif %}
+	{% assign localized_page_data = nil %}
+	{% if page.translation_key and site.data.page_locales and site.data.page_locales[page.translation_key] %}
+		{% assign translation_page_data = site.data.page_locales[page.translation_key] %}
+		{% assign localized_page_data = translation_page_data[current_lang] | default: translation_page_data[default_locale_code] %}
 	{% endif %}
 	{% assign default_title = t.page_title | default: site.page_title %}
-	{% assign page_title_text = page.page_title | default: page.title | default: default_title %}
-	{% assign meta_description = page.meta_description | default: t.meta_description | default: site.app_description %}
+	{% assign page_title_text = page.page_title | default: localized_page_data.page_title | default: page.title | default: localized_page_data.title | default: default_title %}
+	{% assign meta_description = page.meta_description | default: localized_page_data.meta_description | default: t.meta_description | default: site.app_description %}
 	{% assign canonical_url = page.url | absolute_url %}
 	{% assign og_image = site.cover_image | absolute_url %}
 
@@ -20,10 +54,20 @@
 	<meta name="theme-color" content="{{ site.topbar_color }}">
 
 	<link rel="canonical" href="{{ canonical_url }}">
-	{% if page.url == "/" or page.url == "/de/" %}
-		<link rel="alternate" hreflang="en-US" href="{{ '/' | absolute_url }}">
-		<link rel="alternate" hreflang="de" href="{{ '/de/' | absolute_url }}">
-		<link rel="alternate" hreflang="x-default" href="{{ '/' | absolute_url }}">
+	{% if translation_pages.size > 0 %}
+		{% for alt_page in translation_pages %}
+			{% assign alt_lang = alt_page.lang | default: default_locale_code %}
+			{% assign alt_locale = supported_locales[alt_lang] %}
+			{% assign hreflang_value = alt_locale.bcp47 | default: alt_lang %}
+			<link rel="alternate" hreflang="{{ hreflang_value }}" href="{{ alt_page.url | absolute_url }}">
+		{% endfor %}
+		{% assign x_default_page = translation_pages | where: "lang", default_locale_code | first %}
+		{% unless x_default_page %}
+			{% assign x_default_page = translation_pages | first %}
+		{% endunless %}
+		{% if x_default_page %}
+			<link rel="alternate" hreflang="x-default" href="{{ x_default_page.url | absolute_url }}">
+		{% endif %}
 	{% endif %}
 
 	<meta property="og:title" content="{{ page_title_text }}">
@@ -31,9 +75,29 @@
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="{{ canonical_url }}">
 	<meta property="og:image" content="{{ og_image }}">
-	<meta property="og:locale" content="{{ og_locale }}">
-	{% if page.url == "/" or page.url == "/de/" %}
-		<meta property="og:locale:alternate" content="{% if current_lang == 'de' %}en_US{% else %}de_DE{% endif %}">
+	{% if og_locale %}
+		<meta property="og:locale" content="{{ og_locale }}">
+	{% endif %}
+	{% if translation_pages.size > 0 %}
+		{% for alt_page in translation_pages %}
+			{% assign alt_lang = alt_page.lang | default: default_locale_code %}
+			{% if alt_lang != current_lang %}
+				{% assign alt_locale = supported_locales[alt_lang] %}
+				{% assign alt_og_locale = alt_locale.og_locale %}
+				{% unless alt_og_locale %}
+					{% assign alt_bcp47 = alt_locale.bcp47 | default: alt_lang %}
+					{% if alt_bcp47 contains "-" %}
+						{% assign alt_lang_parts = alt_bcp47 | split: "-" %}
+						{% if alt_lang_parts.size == 2 %}
+							{% assign alt_og_locale = alt_lang_parts[0] | downcase | append: "_" | append: alt_lang_parts[1] | upcase %}
+						{% endif %}
+					{% endif %}
+				{% endunless %}
+				{% if alt_og_locale %}
+					<meta property="og:locale:alternate" content="{{ alt_og_locale }}">
+				{% endif %}
+			{% endif %}
+		{% endfor %}
 	{% endif %}
 
 	<meta name="twitter:card" content="summary_large_image">
@@ -55,10 +119,24 @@
 	<script>
 		(function () {
 			var storageKey = "hb_lang_pref";
+			var supportedLangs = [{% for locale_code in locale_order %}"{{ locale_code }}"{% unless forloop.last %}, {% endunless %}{% endfor %}];
+			var localeOrder = supportedLangs.slice();
+			var defaultLang = "{{ default_locale_code }}";
+			var rootPath = "{{ '/' | relative_url }}";
+			var localeHomeUrls = {
+				{% for locale_code in locale_order %}
+				"{{ locale_code }}": "{% assign locale_data = supported_locales[locale_code] %}{% assign locale_prefix = locale_data.path_prefix | default: '' %}{% if locale_prefix != '' and locale_prefix != '/' %}{{ locale_prefix | append: '/' | relative_url }}{% else %}{{ '/' | relative_url }}{% endif %}"{% unless forloop.last %},{% endunless %}
+				{% endfor %}
+			};
+			var browserSubtags = {
+				{% for locale_code in locale_order %}
+				"{{ locale_code }}": [{% assign locale_data = supported_locales[locale_code] %}{% assign subtags = locale_data.browser_subtags | default: '' %}{% if subtags != '' %}{% for subtag in subtags %}"{{ subtag | downcase }}"{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}]{% unless forloop.last %},{% endunless %}
+				{% endfor %}
+			};
 			var params = new URLSearchParams(window.location.search);
 			var requestedLang = params.get("lang");
 
-			if (requestedLang === "de" || requestedLang === "en") {
+			if (requestedLang && supportedLangs.indexOf(requestedLang) !== -1) {
 				localStorage.setItem(storageKey, requestedLang);
 				params.delete("lang");
 				var cleanedQuery = params.toString();
@@ -66,29 +144,56 @@
 				window.history.replaceState({}, "", cleanedUrl);
 			}
 
-			if (window.location.pathname !== "/") {
+			if (window.location.pathname !== rootPath) {
 				return;
 			}
 
 			var preferredLang = localStorage.getItem(storageKey);
-			if (preferredLang === "de") {
-				window.location.replace("{{ '/de/' | relative_url }}");
-				return;
-			}
-			if (preferredLang === "en") {
+			if (preferredLang && supportedLangs.indexOf(preferredLang) !== -1) {
+				var preferredTarget = localeHomeUrls[preferredLang] || rootPath;
+				if (preferredTarget !== rootPath) {
+					window.location.replace(preferredTarget);
+				}
 				return;
 			}
 
 			var browserLanguages = navigator.languages || [navigator.language || ""];
-			var hasGermanLocale = browserLanguages.some(function (languageTag) {
-				return /^de($|-)/i.test(languageTag || "");
-			});
 
-			if (hasGermanLocale) {
-				window.location.replace("{{ '/de/' | relative_url }}");
+			function hasLocaleMatch(languageTag, subtags) {
+				if (!languageTag || !subtags || !subtags.length) {
+					return false;
+				}
+				var normalized = String(languageTag).toLowerCase();
+				return subtags.some(function (subtag) {
+					if (!subtag) {
+						return false;
+					}
+					return normalized === subtag || normalized.indexOf(subtag + "-") === 0;
+				});
+			}
+
+			for (var i = 0; i < localeOrder.length; i += 1) {
+				var localeCode = localeOrder[i];
+				if (localeCode === defaultLang) {
+					continue;
+				}
+				var subtags = browserSubtags[localeCode] || [];
+				var matched = browserLanguages.some(function (languageTag) {
+					return hasLocaleMatch(languageTag, subtags);
+				});
+				if (matched) {
+					var target = localeHomeUrls[localeCode] || rootPath;
+					if (target !== rootPath) {
+						window.location.replace(target);
+					}
+					return;
+				}
 			}
 		})();
 	</script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ '/main.css' | relative_url }}">
+	{% if page.translation_key == "press" %}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css">
+	{% endif %}
 </head>

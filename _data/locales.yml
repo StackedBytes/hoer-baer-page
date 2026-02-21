@@ -1,0 +1,25 @@
+default_locale: en
+order:
+  - en
+  - de
+locales:
+  en:
+    bcp47: en-US
+    og_locale: en_US
+    path_prefix: ""
+    appstore_badge_locale: en-us
+    itunes_country: us
+    browser_subtags:
+      - en
+    native_name: English
+    switch_flag: "🇺🇸"
+  de:
+    bcp47: de-DE
+    og_locale: de_DE
+    path_prefix: "/de"
+    appstore_badge_locale: de-de
+    itunes_country: de
+    browser_subtags:
+      - de
+    native_name: Deutsch
+    switch_flag: "🇩🇪"

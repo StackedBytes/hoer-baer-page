@@ -1,9 +1,28 @@
 {% if site.ios_app_id %}
+{% assign locale_config = site.data.locales %}
+{% assign default_locale_code = locale_config.default_locale | default: "en" %}
+{% assign supported_locales = locale_config.locales %}
+{% assign current_lang_raw = page.lang | default: default_locale_code %}
+{% assign current_lang = current_lang_raw %}
+{% unless supported_locales[current_lang] %}
+{% for locale_item in supported_locales %}
+{% assign locale_code = locale_item[0] %}
+{% assign locale_data = locale_item[1] %}
+{% if locale_data.bcp47 == current_lang_raw %}
+{% assign current_lang = locale_code %}
+{% break %}
+{% endif %}
+{% endfor %}
+{% endunless %}
+{% assign current_locale = supported_locales[current_lang] | default: supported_locales[default_locale_code] %}
+{% assign preferred_country = current_locale.itunes_country | default: site.ios_app_country | default: "us" %}
+{% assign fallback_country = site.ios_app_country | default: preferred_country %}
 
 <script>
 $(function() {
-    var preferredCountry = "{% if page.lang == 'de' %}de{% else %}us{% endif %}";
-    var fallbackCountry = "{{ site.ios_app_country | default: 'de' }}";
+    var preferredCountry = "{{ preferred_country }}";
+    var fallbackCountry = "{{ fallback_country }}";
+    var hasExplicitPageTitle = {{ page.page_title | default: "" | jsonify }}.trim().length > 0;
 
     function lookupURL(countryCode) {
         return "https://itunes.apple.com/lookup?id={{ site.ios_app_id }}&country=" + encodeURIComponent(countryCode) + "&callback=?";
@@ -38,7 +57,7 @@ $(function() {
         }
 
         var $pageTitle = $(".pageTitle");
-        if (appInfo.trackName && shouldFillText($pageTitle)) {
+        if (appInfo.trackName && !hasExplicitPageTitle && shouldFillText($pageTitle)) {
             $pageTitle.text(appInfo.trackName);
         }
 

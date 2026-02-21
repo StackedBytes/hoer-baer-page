@@ -3,12 +3,24 @@
 ---
 
 <!DOCTYPE html>
-{% assign current_lang = page.lang | default: "en" %}
-{% assign t = site.data.i18n[current_lang] | default: site.data.i18n.en %}
-{% assign html_lang = current_lang %}
-{% if current_lang == "en" %}
-	{% assign html_lang = "en-US" %}
-{% endif %}
+{% assign locale_config = site.data.locales %}
+{% assign default_locale_code = locale_config.default_locale | default: "en" %}
+{% assign supported_locales = locale_config.locales %}
+{% assign current_lang_raw = page.lang | default: default_locale_code %}
+{% assign current_lang = current_lang_raw %}
+{% unless supported_locales[current_lang] %}
+	{% for locale_item in supported_locales %}
+		{% assign locale_code = locale_item[0] %}
+		{% assign locale_data = locale_item[1] %}
+		{% if locale_data.bcp47 == current_lang_raw %}
+			{% assign current_lang = locale_code %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+{% endunless %}
+{% assign current_locale = supported_locales[current_lang] | default: supported_locales[default_locale_code] %}
+{% assign t = site.data.i18n[current_lang] | default: site.data.i18n[default_locale_code] %}
+{% assign html_lang = current_locale.bcp47 | default: current_lang %}
 <html lang="{{ html_lang }}">
 
 {% include head.html %}

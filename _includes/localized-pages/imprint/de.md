@@ -1,11 +1,3 @@
----
-layout: page
-title: Impressum
-include_in_header: false
-lang: de
-permalink: /de/impressum/
----
-
 # Impressum
 
 Angaben gemaess § 5 ECG:

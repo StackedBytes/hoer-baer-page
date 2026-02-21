@@ -1,11 +1,3 @@
----
-layout: page
-title: Terms and Conditions
-include_in_header: false
-lang: en
-permalink: /termsofservice/
----
-
 # Terms and Conditions for Using the "HörBär" App
 
 The "HörBär" application (the "App") is software designed by provider Benjamin Rudhart as an iOS/iPadOS app for private end users.

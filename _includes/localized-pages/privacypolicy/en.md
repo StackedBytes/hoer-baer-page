@@ -1,11 +1,3 @@
----
-layout: page
-title: Privacy Policy
-include_in_header: false
-lang: en
-permalink: /privacypolicy/
----
-
 # Privacy Policy
 
 ## I. Controller

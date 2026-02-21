@@ -1,15 +1,56 @@
-{% assign footer_lang = page.lang | default: "en" %}
-{% assign footer_i18n = site.data.i18n[footer_lang].footer | default: site.data.i18n.en.footer %}
-{% assign changelog_link = "/changelog/" %}
-{% assign privacy_link = "/privacypolicy/" %}
-{% assign terms_link = "/termsofservice/" %}
-{% assign imprint_link = "/imprint/" %}
-{% if footer_lang == "de" %}
-	{% assign changelog_link = "/de/changelog/" %}
-	{% assign privacy_link = "/de/privacypolicy/" %}
-	{% assign terms_link = "/de/termsofservice/" %}
-	{% assign imprint_link = "/de/impressum/" %}
-{% endif %}
+{% assign locale_config = site.data.locales %}
+{% assign default_locale_code = locale_config.default_locale | default: "en" %}
+{% assign supported_locales = locale_config.locales %}
+{% assign footer_lang_raw = page.lang | default: default_locale_code %}
+{% assign footer_lang = footer_lang_raw %}
+{% unless supported_locales[footer_lang] %}
+	{% for locale_item in supported_locales %}
+		{% assign locale_code = locale_item[0] %}
+		{% assign locale_data = locale_item[1] %}
+		{% if locale_data.bcp47 == footer_lang_raw %}
+			{% assign footer_lang = locale_code %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+{% endunless %}
+{% assign footer_i18n = site.data.i18n[footer_lang].footer | default: site.data.i18n[default_locale_code].footer %}
+{% assign changelog_link = "/" %}
+{% assign privacy_link = "/" %}
+{% assign terms_link = "/" %}
+{% assign imprint_link = "/" %}
+{% assign footer_translation_keys = "changelog,privacypolicy,termsofservice,imprint" | split: "," %}
+{% for footer_key in footer_translation_keys %}
+	{% assign footer_candidates = site.pages | where: "translation_key", footer_key | where: "lang", footer_lang %}
+	{% if footer_candidates.size == 0 %}
+		{% assign footer_candidates = site.html_pages | where: "translation_key", footer_key | where: "lang", footer_lang %}
+	{% endif %}
+	{% assign footer_target = footer_candidates | first %}
+	{% unless footer_target %}
+		{% assign footer_fallback_candidates = site.pages | where: "translation_key", footer_key | where: "lang", default_locale_code %}
+		{% if footer_fallback_candidates.size == 0 %}
+			{% assign footer_fallback_candidates = site.html_pages | where: "translation_key", footer_key | where: "lang", default_locale_code %}
+		{% endif %}
+		{% assign footer_target = footer_fallback_candidates | first %}
+	{% endunless %}
+	{% unless footer_target %}
+		{% assign footer_any_candidates = site.pages | where: "translation_key", footer_key %}
+		{% if footer_any_candidates.size == 0 %}
+			{% assign footer_any_candidates = site.html_pages | where: "translation_key", footer_key %}
+		{% endif %}
+		{% assign footer_target = footer_any_candidates | first %}
+	{% endunless %}
+	{% if footer_target %}
+		{% if footer_key == "changelog" %}
+			{% assign changelog_link = footer_target.url %}
+		{% elsif footer_key == "privacypolicy" %}
+			{% assign privacy_link = footer_target.url %}
+		{% elsif footer_key == "termsofservice" %}
+			{% assign terms_link = footer_target.url %}
+		{% elsif footer_key == "imprint" %}
+			{% assign imprint_link = footer_target.url %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
 <footer>
 	{% if site.your_name %}
 	<p class="footerText">{{ footer_i18n.built_by | default: "Entwickelt von" }} {% if site.your_link %}<a href="{{ site.your_link }}" target="_blank" rel="noopener noreferrer">{% endif %}{{ site.your_name }}{% if site.your_link %}</a>{% endif %}{% if site.your_city %} in {{ site.your_city }}{% endif %}</p>

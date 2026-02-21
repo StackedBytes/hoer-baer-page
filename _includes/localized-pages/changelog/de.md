@@ -1,16 +1,9 @@
----
-layout: page
-title: Neuigkeiten
-include_in_header: false
-lang: de
-permalink: /de/changelog/
-translation_key: changelog
----
-
 # Versionshinweise
 Hier findest du aktuelle Änderungen und Verbesserungen der HörBär-App.
 
-{% assign releases = site.data.releases.releases.de %}
+{% assign default_locale_code = site.data.locales.default_locale | default: "en" %}
+{% assign release_lang = page.lang | default: default_locale_code %}
+{% assign releases = site.data.releases.releases[release_lang] | default: site.data.releases.releases[default_locale_code] %}
 {% if releases and releases.size > 0 %}
 {% for release in releases %}
 <details class="changelogEntry"{% if forloop.first %} open{% endif %}>

@@ -115,9 +115,16 @@ sass:
 
 # Exclude these files from your production _site
 exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - .jekyll-metadata
+  - Gemfile
+  - Gemfile.lock
   - LICENSE
   - README.md
   - CNAME
+  - node_modules/
+  - vendor/
 
 collections:
   pages:

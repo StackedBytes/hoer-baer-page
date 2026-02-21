@@ -9,10 +9,25 @@ require "yaml"
 
 APP_ID = ENV.fetch("IOS_APP_ID", "6748903433")
 DATA_FILE = File.expand_path("../_data/releases.yml", __dir__)
-COUNTRY_BY_LANG = {
-  "de" => "de",
-  "en" => "us"
-}.freeze
+LOCALES_FILE = File.expand_path("../_data/locales.yml", __dir__)
+
+def load_country_by_lang(locales_file)
+  locales_data = YAML.safe_load_file(locales_file) || {}
+  locales = locales_data.fetch("locales", {})
+  return {} unless locales.is_a?(Hash)
+
+  locales.each_with_object({}) do |(lang, locale_config), memo|
+    next unless locale_config.is_a?(Hash)
+
+    country = locale_config["itunes_country"].to_s.strip
+    next if country.empty?
+
+    memo[lang.to_s] = country
+  end
+end
+
+COUNTRY_BY_LANG = load_country_by_lang(LOCALES_FILE).freeze
+raise "No locale countries found in #{LOCALES_FILE}" if COUNTRY_BY_LANG.empty?
 
 def deep_copy(value)
   Marshal.load(Marshal.dump(value))

@@ -1,0 +1,11 @@
+{% assign page_key = include.key | default: page.translation_key %}
+{% assign page_lang = page.lang | default: "en" %}
+{% assign page_locales = site.data.page_locales[page_key] %}
+
+{% if page_locales %}
+  {% assign page_locale = page_locales[page_lang] | default: page_locales.en %}
+  {% if page_locale and page_locale.include %}
+{% capture localized_markdown %}{% include {{ page_locale.include }} %}{% endcapture %}
+{{ localized_markdown | markdownify }}
+  {% endif %}
+{% endif %}

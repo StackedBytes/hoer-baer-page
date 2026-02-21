@@ -1,22 +1,14 @@
----
-layout: page
-title: AGB
-include_in_header: false
-lang: de
-permalink: /de/termsofservice/
----
+# AGB zur Nutzung der "HörBär"-App
 
-# AGB zur Nutzung der „HörBär"-App
-
-Die „HörBär"-Applikation (im Folgenden „App") ist eine Software, die vom Anbieter Benjamin Rudhart als iOS/iPadOS Anwendung für private Endkunden konzipiert wurde.
+Die "HörBär"-Applikation (im Folgenden "App") ist eine Software, die vom Anbieter Benjamin Rudhart als iOS/iPadOS Anwendung für private Endkunden konzipiert wurde.
 
 ## Geltungsbereich
 
-Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für jede Nutzung der App durch Privatkunden. Privatkunde ist jede natürliche Person, die nicht im Rahmen einer gewerblichen oder selbständig beruflichen Tätigkeit, oder als Stellvertreter für juristische Personen tätig ist und den digitalen Service der App auf ihrem iOS- und/oder iPadOS-Gerät in Anspruch nimmt (im Folgenden „Nutzer").
+Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für jede Nutzung der App durch Privatkunden. Privatkunde ist jede natürliche Person, die nicht im Rahmen einer gewerblichen oder selbständig beruflichen Tätigkeit, oder als Stellvertreter für juristische Personen tätig ist und den digitalen Service der App auf ihrem iOS- und/oder iPadOS-Gerät in Anspruch nimmt (im Folgenden "Nutzer").
 
 ## Angebot und Vertragsabschluss
 
-Die App wird mit und ohne Abonnement (im Folgenden „Abo") angeboten. Ohne Abo kann der Nutzer nur eingeschränkte Leistungen der App in Anspruch nehmen.
+Die App wird mit und ohne Abonnement (im Folgenden "Abo") angeboten. Ohne Abo kann der Nutzer nur eingeschränkte Leistungen der App in Anspruch nehmen.
 
 Die vollständige Nutzung der angebotenen Leistungen erfordert den Abschluss bzw. die Bestellung eines Abos.
 
