@@ -81,6 +81,10 @@
 	grid-column: 3/11;
 }
 
+.page.pressPage {
+	grid-column: 1/-1;
+}
+
 @media only screen and (max-width: 768px) {
 
 	.page {
@@ -110,6 +114,8 @@ header {
 // Shared typography scale across landing and content pages.
 nav > ul li a {
 	font-size: 2.1rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
 }
 
 .langPickerTitle {
@@ -139,8 +145,7 @@ nav > ul li a {
 	}
 
 	.headerName {
-		font-size: 2.8rem;
-		margin-left: 10px;
+		display: none;
 	}
 	
 } 
@@ -182,7 +187,7 @@ nav > ul li a {
 		padding-top: 100px;
 		padding-bottom: 100px;
 		margin-top: -60px;
-		justify-content: flex-start;
+		justify-content: flex-end;
 	}	
 
 	.scroll.languageOnly {
@@ -197,11 +202,14 @@ nav > ul li a {
 nav > ul {
 	color: #fff;
 	display: flex;
+	align-items: center;
 	list-style-type: none;
 
 }
 
 nav > ul li {
+	display: flex;
+	align-items: center;
 	padding-left: 30px;
 }
 
@@ -234,8 +242,14 @@ nav > ul li a:active {
 	color: rgba($header-title-color, 1);
 }
 
+nav > ul li a.isActive:link,
+nav > ul li a.isActive:visited {
+	color: rgba($header-title-color, 1);
+	font-weight: 700;
+}
+
 .langSwitchItem {
-	padding-left: 20px;
+	padding-left: 30px;
 	position: relative;
 }
 
@@ -248,15 +262,26 @@ nav > ul li a:active {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 48px;
-	height: 42px;
 	padding: 0px;
-	border: 1px solid rgba($header-title-color, 0.45);
-	border-radius: 999px;
+	border: 0;
+	border-radius: 0;
 	line-height: 1;
 	cursor: pointer;
 	background-color: transparent;
-	transition: background-color 0.2s ease, border-color 0.2s ease;
+	color: rgba($header-title-color, 0.6);
+	font-family: inherit;
+	font-size: 2.1rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	margin: 0;
+	transition: color 0.2s ease;
+	transform: translateY(calc(-0.08em + 2px));
+}
+
+.langPickerToggle > .langSwitchFlag {
+	display: inline-flex;
+	align-items: center;
+	line-height: 1;
 }
 
 .langPickerToggle::-webkit-details-marker {
@@ -268,15 +293,13 @@ nav > ul li a:active {
 }
 
 .langSwitchFlag {
-	font-size: 1.8rem;
-	line-height: 1;
-	color: $accent-color;
+	font-size: 1.9rem;
+	color: currentColor;
 }
 
 .langPicker[open] .langPickerToggle,
 .langPickerToggle:hover {
-	background-color: rgba($header-title-color, 0.12);
-	border-color: rgba($header-title-color, 0.75);
+	color: rgba($header-title-color, 1);
 }
 
 .langPickerMenu {
@@ -341,12 +364,11 @@ nav > ul li a.langPickerOption.isActive:visited {
 @media only screen and (max-width: 768px) {
 
 	.langSwitchItem {
-		padding-left: 12px;
+		padding-left: 20px;
 	}
 
 	.langPickerToggle {
-		width: 44px;
-		height: 38px;
+		transform: translateY(calc(-0.12em + 2px));
 	}
 
 	.langSwitchFlag {
@@ -423,6 +445,365 @@ nav > ul li a.langPickerOption.isActive:visited {
 .subPageBody .markdown-body th,
 .subPageBody .markdown-body blockquote {
 	color: rgba($feature-text-color, 0.96);
+}
+
+$press-vibrant-orange: #ff6a00;
+$press-label-value-gap: 2px;
+$press-after-value-gap: 20px;
+
+.pressLayout {
+	display: grid;
+	grid-template-columns: minmax(240px, 320px) 1fr;
+	gap: 34px;
+	align-items: start;
+}
+
+.subPageBody .markdown-body .pressLayout a {
+	color: $press-vibrant-orange;
+}
+
+.pressOverviewCard {
+	position: sticky;
+	top: 24px;
+	display: flex;
+	flex-direction: column;
+	padding: 26px 24px 28px 24px;
+	border: 3px solid $press-vibrant-orange;
+	border-radius: 30px;
+	background-color: #f3eee5;
+}
+
+.pressOverviewIcon {
+	display: block;
+	width: 108px;
+	height: 108px;
+	margin: 0 0 18px 0;
+	border-radius: 24px;
+	box-shadow: 0px 8px 20px rgba(#000, 0.14);
+}
+
+.pressOverviewLabel {
+	margin: 0;
+	font-size: 1.2rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: rgba($feature-text-color, 0.82);
+}
+
+.pressOverviewName {
+	margin: $press-label-value-gap 0 0 0;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: 0;
+	color: $feature-title-color;
+}
+
+.pressOverviewList {
+	margin: 0;
+	padding-left: 0;
+	list-style: none;
+}
+
+.pressOverviewList li {
+	margin: 0 0 9px 0;
+}
+
+.pressOverviewList a {
+	color: $press-vibrant-orange;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+}
+
+.pressOverviewStoreLink {
+	display: block;
+	line-height: 0;
+	width: 100%;
+	margin: auto 0 0 0;
+	padding-top: 20px;
+}
+
+.pressOverviewStoreBadge {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+	background-color: transparent;
+}
+
+.pressQrToggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: 16px;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background-color: transparent;
+	color: rgba($feature-title-color, 0.78);
+	font-family: inherit;
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.2;
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+.pressQrToggle:hover {
+	color: $press-vibrant-orange;
+}
+
+.pressQrToggle:focus-visible {
+	outline: 3px solid rgba($press-vibrant-orange, 0.4);
+	outline-offset: 2px;
+}
+
+.pressQrPanel {
+	margin-top: 16px;
+}
+
+.pressQrLink {
+	display: block;
+	width: 100%;
+	line-height: 0;
+	margin-bottom: 6px;
+}
+
+.pressQrImage {
+	display: block;
+	width: 100%;
+	max-width: none;
+	height: auto;
+	margin: 0;
+	border-radius: 12px;
+}
+
+.pressQrHint {
+	margin: 8px 0 0 0;
+	font-size: 1.2rem;
+	font-weight: 500;
+	line-height: 1.35;
+	text-align: left;
+	color: rgba($feature-text-color, 0.8);
+}
+
+.pressOverviewMetaLabel {
+	margin: 0;
+	font-size: 1.2rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: rgba($feature-text-color, 0.82);
+}
+
+.pressOverviewMetaItems {
+	margin-top: $press-after-value-gap;
+	margin-bottom: 4px;
+}
+
+.pressOverviewMetaItem {
+	margin: 0 0 $press-after-value-gap 0;
+}
+
+.pressOverviewMetaItem:last-child {
+	margin-bottom: 0;
+}
+
+.pressOverviewMetaValue {
+	margin: $press-label-value-gap 0 0 0;
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.pressOverviewMetaValue a {
+	color: $press-vibrant-orange;
+}
+
+.subPageBody .markdown-body .pressOverviewStoreBadge {
+	max-width: none;
+	background-color: transparent;
+}
+
+.pressMainContent h1 {
+	margin-top: 0;
+}
+
+.subPageBody .markdown-body .pressMainContent h1,
+.subPageBody .markdown-body .pressMainContent h2 {
+	border-bottom: 0;
+	padding-bottom: 0;
+	font-size: 3.3rem;
+	line-height: 1.2;
+}
+
+.pressMediaTabs {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 52px;
+}
+
+.pressMediaTab {
+	border: 1px solid rgba($feature-title-color, 0.22);
+	border-radius: 999px;
+	background-color: rgba(#fff, 0.7);
+	color: rgba($feature-title-color, 0.82);
+	padding: 11px 20px;
+	font-family: inherit;
+	font-size: 1.8rem;
+	font-weight: 600;
+	line-height: 1.2;
+	cursor: pointer;
+}
+
+.pressMediaTab:hover {
+	border-color: rgba($feature-title-color, 0.4);
+	background-color: rgba(#fff, 0.94);
+}
+
+.pressMediaTab.isActive {
+	border-width: 2px;
+	border-color: $press-vibrant-orange;
+	background-color: rgba($press-vibrant-orange, 0.24);
+	color: rgba($feature-title-color, 1);
+	box-shadow: 0 4px 10px rgba($press-vibrant-orange, 0.25);
+	transform: translateY(-1px);
+}
+
+.pressMediaGrid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin-top: 16px;
+}
+
+.pressMediaCard {
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+	background-color: transparent;
+	padding: 0;
+}
+
+.pressMediaLink {
+	display: block;
+	line-height: 0;
+}
+
+.pressMediaLink:focus-visible {
+	outline: 3px solid $press-vibrant-orange;
+	outline-offset: 3px;
+	border-radius: 10px;
+}
+
+.pressMediaCard img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+}
+
+.pressMediaDownloadInline {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 8px;
+	padding: 4px 0;
+	border: 0;
+	border-radius: 999px;
+	background-color: transparent;
+	color: rgba($feature-title-color, 0.86) !important;
+	font-size: 1.3rem;
+	font-weight: 600;
+	line-height: 1;
+	text-decoration: none !important;
+}
+
+.pressMediaDownloadInline:hover {
+	color: $press-vibrant-orange !important;
+}
+
+.pressMediaDownloadInline:focus-visible {
+	outline: 3px solid rgba($press-vibrant-orange, 0.45);
+	outline-offset: 2px;
+}
+
+.pswp__custom-caption {
+	position: absolute;
+	left: 16px;
+	bottom: 16px;
+	max-width: min(74vw, 560px);
+	padding: 10px 12px;
+	border-radius: 10px;
+	background-color: rgba(#0b0f16, 0.72);
+	color: rgba(#fff, 0.96);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.35;
+	pointer-events: none;
+}
+
+.pswp__button--download-button {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center;
+	gap: 0;
+	width: auto !important;
+	min-width: 132px !important;
+	max-width: none !important;
+	height: 40px;
+	margin: 6px 8px 0 0;
+	padding: 0 14px !important;
+	border: 1px solid rgba(#fff, 0.38);
+	border-radius: 999px;
+	background-color: rgba($press-vibrant-orange, 0.92);
+	color: #fff;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1;
+	opacity: 1;
+	overflow: visible !important;
+	white-space: nowrap;
+	flex: 0 0 auto;
+}
+
+.pswp__button--download-button:hover,
+.pswp__button--download-button:focus-visible {
+	background-color: rgba($press-vibrant-orange, 1);
+	border-color: rgba(#fff, 0.6);
+}
+
+.pressPswpDownloadIcon {
+	display: inline-flex;
+	align-items: center;
+	margin-right: 10px;
+	font-size: 18px;
+	line-height: 1;
+}
+
+.pressPswpDownloadText {
+	font-size: 14px;
+	line-height: 1;
+	letter-spacing: 0.02em;
+}
+
+@media only screen and (max-width: 768px) {
+	.pressMediaGrid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.pressLayout {
+		grid-template-columns: 1fr;
+	}
+
+	.pressOverviewCard {
+		position: static;
+	}
 }
 
 .subPageBody .markdown-body .changelogEntry {
@@ -548,14 +929,19 @@ nav > ul li a.langPickerOption.isActive:visited {
 	color: rgba($feature-title-color, 1);
 }
 
+.subPageHeaderBackground nav > ul li a.isActive:link,
+.subPageHeaderBackground nav > ul li a.isActive:visited {
+	color: rgba($feature-title-color, 1);
+	font-weight: 700;
+}
+
 .subPageHeaderBackground .langPickerToggle {
-	border-color: rgba($feature-title-color, 0.24);
+	color: rgba($feature-title-color, 0.72);
 }
 
 .subPageHeaderBackground .langPicker[open] .langPickerToggle,
 .subPageHeaderBackground .langPickerToggle:hover {
-	background-color: rgba($feature-title-color, 0.08);
-	border-color: rgba($feature-title-color, 0.45);
+	color: rgba($feature-title-color, 1);
 }
 
 .subPageHeaderBackground .langPickerMenu {

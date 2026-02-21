@@ -1,16 +1,68 @@
+{% assign locale_config = site.data.locales %}
+{% assign default_locale_code = locale_config.default_locale | default: "en" %}
+{% assign supported_locales = locale_config.locales %}
+{% assign screenshot_lang_raw = page.lang | default: default_locale_code %}
+{% assign screenshot_lang = screenshot_lang_raw %}
+{% unless supported_locales[screenshot_lang] %}
+	{% for locale_item in supported_locales %}
+		{% assign locale_code = locale_item[0] %}
+		{% assign locale_data = locale_item[1] %}
+		{% if locale_data.bcp47 == screenshot_lang_raw %}
+			{% assign screenshot_lang = locale_code %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+{% endunless %}
+
+{% assign locale_screenshot_prefix = "/assets/screenshot/" | append: screenshot_lang | append: "/" %}
+{% assign fallback_screenshot_prefix = "/assets/screenshot/de/" %}
 {% assign primary_screenshot = "" %}
 {% assign has_video = false %}
+{% assign hero_image_path = "/assets/hero.png" %}
+{% assign hero_file_names = "ios-1.png,ios-1.jpg,ios-1.jpeg,ios-1.webp" | split: "," %}
 
 {% for file in site.static_files %}
-	{% if file.path contains "assets/screenshot/" and (file.name == "hero-de-0.png" or file.name == "hero-de-0.jpg") %}
-		{% assign primary_screenshot = file.path %}
+	{% if file.path == hero_image_path %}
+		{% assign primary_screenshot = hero_image_path %}
 		{% break %}
 	{% endif %}
 {% endfor %}
 
+{% if primary_screenshot == "" %}
+	{% for hero_file_name in hero_file_names %}
+		{% assign locale_hero_path = locale_screenshot_prefix | append: hero_file_name %}
+		{% for file in site.static_files %}
+			{% if file.path == locale_hero_path %}
+				{% assign primary_screenshot = locale_hero_path %}
+				{% break %}
+			{% endif %}
+		{% endfor %}
+		{% if primary_screenshot != "" %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% if primary_screenshot == "" %}
+	{% for hero_file_name in hero_file_names %}
+		{% assign fallback_hero_path = fallback_screenshot_prefix | append: hero_file_name %}
+		{% for file in site.static_files %}
+			{% if file.path == fallback_hero_path %}
+				{% assign primary_screenshot = fallback_hero_path %}
+				{% break %}
+			{% endif %}
+		{% endfor %}
+		{% if primary_screenshot != "" %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
 {% for file in site.static_files %}
 	{% if file.path contains "assets/screenshot/" and primary_screenshot == "" %}
+		{% if file.extname == ".png" or file.extname == ".jpg" or file.extname == ".jpeg" or file.extname == ".webp" %}
 		{% assign primary_screenshot = file.path %}
+		{% endif %}
 	{% endif %}
 	{% if file.path contains "assets/videos/" %}
 		{% if file.extname == ".mp4" or file.extname == ".mov" or file.extname == ".webm" or file.extname == ".ogg" %}

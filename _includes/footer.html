@@ -14,11 +14,10 @@
 	{% endfor %}
 {% endunless %}
 {% assign footer_i18n = site.data.i18n[footer_lang].footer | default: site.data.i18n[default_locale_code].footer %}
-{% assign changelog_link = "/" %}
 {% assign privacy_link = "/" %}
 {% assign terms_link = "/" %}
 {% assign imprint_link = "/" %}
-{% assign footer_translation_keys = "changelog,privacypolicy,termsofservice,imprint" | split: "," %}
+{% assign footer_translation_keys = "privacypolicy,termsofservice,imprint" | split: "," %}
 {% for footer_key in footer_translation_keys %}
 	{% assign footer_candidates = site.pages | where: "translation_key", footer_key | where: "lang", footer_lang %}
 	{% if footer_candidates.size == 0 %}
@@ -40,9 +39,7 @@
 		{% assign footer_target = footer_any_candidates | first %}
 	{% endunless %}
 	{% if footer_target %}
-		{% if footer_key == "changelog" %}
-			{% assign changelog_link = footer_target.url %}
-		{% elsif footer_key == "privacypolicy" %}
+		{% if footer_key == "privacypolicy" %}
 			{% assign privacy_link = footer_target.url %}
 		{% elsif footer_key == "termsofservice" %}
 			{% assign terms_link = footer_target.url %}
@@ -131,7 +128,6 @@
 
 	</div>
 	<div class="footerLinks">
-		<a href="{{ changelog_link | relative_url }}">{{ footer_i18n.changelog | default: "Neuigkeiten" }}</a>
 		<a href="{{ privacy_link | relative_url }}">{{ footer_i18n.privacy | default: "Datenschutzerklärung" }}</a>
 		<a href="{{ terms_link | relative_url }}">{{ footer_i18n.terms | default: "AGB" }}</a>
 		<a href="{{ imprint_link | relative_url }}">{{ footer_i18n.imprint | default: "Impressum" }}</a>

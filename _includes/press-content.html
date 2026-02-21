@@ -1,0 +1,730 @@
+{% assign locale_config = site.data.locales %}
+{% assign default_locale_code = locale_config.default_locale | default: "en" %}
+{% assign supported_locales = locale_config.locales %}
+{% assign press_lang_raw = page.lang | default: default_locale_code %}
+{% assign press_lang = press_lang_raw %}
+{% unless supported_locales[press_lang] %}
+  {% for locale_item in supported_locales %}
+    {% assign locale_code = locale_item[0] %}
+    {% assign locale_data = locale_item[1] %}
+    {% if locale_data.bcp47 == press_lang_raw %}
+      {% assign press_lang = locale_code %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endunless %}
+{% assign current_locale = supported_locales[press_lang] | default: supported_locales[default_locale_code] %}
+{% assign press = site.data.i18n[press_lang].press | default: site.data.i18n[default_locale_code].press %}
+{% assign locale_texts = site.data.i18n[press_lang] | default: site.data.i18n[default_locale_code] %}
+{% assign localized_app_name = site.app_name | default: locale_texts.hero_headline %}
+{% assign press_website_url = site.url | default: "https://www.hoerbaer.app" %}
+{% if press_website_url == nil or press_website_url == "" or press_website_url contains "localhost" %}
+  {% assign press_website_url = "https://www.hoerbaer.app" %}
+{% endif %}
+{% assign press_website_text = press_website_url | remove: "https://" | remove: "http://" %}
+{% assign developer_link = site.your_link %}
+{% if developer_link == nil or developer_link == "" %}
+  {% assign developer_link = "https://benrudhart.com" %}
+{% endif %}
+{% assign appstore_badge_locale = current_locale.appstore_badge_locale | default: "en-us" %}
+{% assign locale_screenshot_prefix = "/assets/screenshot/" | append: press_lang %}
+{% assign fallback_screenshot_prefix = "/assets/screenshot/de" %}
+
+{% assign press_home = "" %}
+{% assign press_home_locale = locale_screenshot_prefix | append: "/ios-1.png" %}
+{% assign press_home_fallback = fallback_screenshot_prefix | append: "/ios-1.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_home_locale %}
+    {% assign press_home = press_home_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_home_fallback and press_home == "" %}
+    {% assign press_home = press_home_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_favorites = "" %}
+{% assign press_favorites_locale = locale_screenshot_prefix | append: "/ios-2.png" %}
+{% assign press_favorites_fallback = fallback_screenshot_prefix | append: "/ios-2.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_favorites_locale %}
+    {% assign press_favorites = press_favorites_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_favorites_fallback and press_favorites == "" %}
+    {% assign press_favorites = press_favorites_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_categories = "" %}
+{% assign press_categories_locale = locale_screenshot_prefix | append: "/ios-3.png" %}
+{% assign press_categories_fallback = fallback_screenshot_prefix | append: "/ios-3.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_categories_locale %}
+    {% assign press_categories = press_categories_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_categories_fallback and press_categories == "" %}
+    {% assign press_categories = press_categories_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_detective = "" %}
+{% assign press_detective_locale = locale_screenshot_prefix | append: "/ios-4.png" %}
+{% assign press_detective_fallback = fallback_screenshot_prefix | append: "/ios-4.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_detective_locale %}
+    {% assign press_detective = press_detective_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_detective_fallback and press_detective == "" %}
+    {% assign press_detective = press_detective_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_player_1 = "" %}
+{% assign press_player_1_locale = locale_screenshot_prefix | append: "/ios-5.png" %}
+{% assign press_player_1_fallback = fallback_screenshot_prefix | append: "/ios-5.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_player_1_locale %}
+    {% assign press_player_1 = press_player_1_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_player_1_fallback and press_player_1 == "" %}
+    {% assign press_player_1 = press_player_1_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_player_2 = "" %}
+{% assign press_player_2_locale = locale_screenshot_prefix | append: "/ios-6.png" %}
+{% assign press_player_2_fallback = fallback_screenshot_prefix | append: "/ios-6.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_player_2_locale %}
+    {% assign press_player_2 = press_player_2_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_player_2_fallback and press_player_2 == "" %}
+    {% assign press_player_2 = press_player_2_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_ipad_home = "" %}
+{% assign press_ipad_home_locale = locale_screenshot_prefix | append: "/ipad-1.png" %}
+{% assign press_ipad_home_fallback = fallback_screenshot_prefix | append: "/ipad-1.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_home_locale %}
+    {% assign press_ipad_home = press_ipad_home_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_home_fallback and press_ipad_home == "" %}
+    {% assign press_ipad_home = press_ipad_home_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_ipad_favorites = "" %}
+{% assign press_ipad_favorites_locale = locale_screenshot_prefix | append: "/ipad-2.png" %}
+{% assign press_ipad_favorites_fallback = fallback_screenshot_prefix | append: "/ipad-2.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_favorites_locale %}
+    {% assign press_ipad_favorites = press_ipad_favorites_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_favorites_fallback and press_ipad_favorites == "" %}
+    {% assign press_ipad_favorites = press_ipad_favorites_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_ipad_categories = "" %}
+{% assign press_ipad_categories_locale = locale_screenshot_prefix | append: "/ipad-3.png" %}
+{% assign press_ipad_categories_fallback = fallback_screenshot_prefix | append: "/ipad-3.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_categories_locale %}
+    {% assign press_ipad_categories = press_ipad_categories_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_categories_fallback and press_ipad_categories == "" %}
+    {% assign press_ipad_categories = press_ipad_categories_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_ipad_detective = "" %}
+{% assign press_ipad_detective_locale = locale_screenshot_prefix | append: "/ipad-4.png" %}
+{% assign press_ipad_detective_fallback = fallback_screenshot_prefix | append: "/ipad-4.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_detective_locale %}
+    {% assign press_ipad_detective = press_ipad_detective_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_detective_fallback and press_ipad_detective == "" %}
+    {% assign press_ipad_detective = press_ipad_detective_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign press_ipad_player = "" %}
+{% assign press_ipad_player_locale = locale_screenshot_prefix | append: "/ipad-5.png" %}
+{% assign press_ipad_player_fallback = fallback_screenshot_prefix | append: "/ipad-5.png" %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_player_locale %}
+    {% assign press_ipad_player = press_ipad_player_locale %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% for file in site.static_files %}
+  {% if file.path == press_ipad_player_fallback and press_ipad_player == "" %}
+    {% assign press_ipad_player = press_ipad_player_fallback %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<div class="pressLayout">
+  <aside class="pressOverviewCard">
+    <img class="pressOverviewIcon" src="{{ site.app_icon | relative_url }}" alt="{{ locale_texts.app_icon_alt | default: 'App icon' }}" data-prefer-api="true">
+    <div class="pressOverviewLabel">{{ press.app_name_label | default: "App Name" }}</div>
+    <div class="pressOverviewName">{{ localized_app_name }}</div>
+
+    <div class="pressOverviewMetaItems">
+      <div class="pressOverviewMetaItem">
+        <div class="pressOverviewMetaLabel">{{ press.release_date_label }}</div>
+        <div class="pressOverviewMetaValue">{{ press.release_date_value }}</div>
+      </div>
+      <div class="pressOverviewMetaItem">
+        <div class="pressOverviewMetaLabel">{{ press.developer_label }}</div>
+        <div class="pressOverviewMetaValue"><a href="{{ developer_link }}" target="_blank" rel="noopener noreferrer">{{ site.your_name }}</a></div>
+      </div>
+      <div class="pressOverviewMetaItem">
+        <div class="pressOverviewMetaLabel">{{ press.website_label | default: "Website" }}</div>
+        <div class="pressOverviewMetaValue"><a href="{{ press_website_url }}" target="_blank" rel="noopener noreferrer">{{ press_website_text }}</a></div>
+      </div>
+      <div class="pressOverviewMetaItem">
+        <div class="pressOverviewMetaLabel">{{ press.contact_label }}</div>
+        <div class="pressOverviewMetaValue"><a href="mailto:{{ site.email_address }}">{{ site.email_address }}</a></div>
+      </div>
+    </div>
+
+    {% if site.appstore_link %}
+      <a class="pressOverviewStoreLink appStoreLink" href="{{ site.appstore_link }}" target="_blank" rel="noopener noreferrer" data-prefer-api="true">
+        <img class="pressOverviewStoreBadge" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/{{ appstore_badge_locale }}?size=250x83" alt="{{ locale_texts.appstore_badge_alt | default: 'Download on the App Store' }}">
+      </a>
+      <button class="pressQrToggle" type="button" aria-expanded="false" aria-controls="pressQrPanel">
+        <i class="fas fa-qrcode" aria-hidden="true"></i>
+        <span class="pressQrToggleText">{{ press.qr_button_show | default: "Show QR code" }}</span>
+      </button>
+      <div class="pressQrPanel" id="pressQrPanel" hidden>
+        <a class="pressQrLink appStoreLink" href="{{ site.appstore_link }}" target="_blank" rel="noopener noreferrer" data-prefer-api="true">
+          <img class="pressQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=360x360&format=svg&margin=8&color=255-106-0&bgcolor=243-238-229&data={{ site.appstore_link | url_encode }}" alt="{{ press.qr_image_alt | default: 'QR code linking to the App Store page' }}">
+        </a>
+        <p class="pressQrHint">{{ press.qr_hint | default: "Scan the code to open the app in the App Store." }}</p>
+      </div>
+    {% endif %}
+  </aside>
+
+  <div class="pressMainContent">
+    <h2>{{ press.sections.kit }}</h2>
+    <p>{{ press.kit_intro }}</p>
+    <p>
+      {{ press.kit_contact_intro }}
+      <a href="mailto:{{ site.email_address }}">{{ site.email_address }}</a>
+      {% if site.mastodon_link and site.mastodon_link != "" %}
+        {{ press.kit_contact_mastodon }}
+        <a href="{{ site.mastodon_link }}" target="_blank" rel="me noopener noreferrer">{{ press.kit_mastodon_handle | default: site.mastodon_link }}</a>
+      {% endif %}
+      .
+    </p>
+
+    <h1>{{ press.heading }}</h1>
+    <p>{{ press.intro }}</p>
+
+    <h2>{{ press.sections.features }}</h2>
+    <ul>
+      {% for feature in press.features_list %}
+        <li>{{ feature }}</li>
+      {% endfor %}
+    </ul>
+
+    <h2>{{ press.audience_heading }}</h2>
+    <p>{{ press.audience_text }}</p>
+
+    <h2>{{ press.questions_heading }}</h2>
+    <p>
+      {{ press.questions_text }}
+      <a href="mailto:{{ site.email_address }}">{{ site.email_address }}</a>
+      {% if site.mastodon_link and site.mastodon_link != "" %}
+        {{ press.kit_contact_mastodon }}
+        <a href="{{ site.mastodon_link }}" target="_blank" rel="me noopener noreferrer">{{ press.kit_mastodon_handle | default: site.mastodon_link }}</a>
+      {% endif %}
+      .
+    </p>
+
+    <h2>{{ press.sections.images }}</h2>
+    <p>
+      {{ press.media_intro }}
+      {{ press.media_bulk_download_prefix }}
+      <a href="{{ '/assets/screenshot/hoerbaer-press-assets.zip' | relative_url }}" target="_blank" rel="noopener noreferrer">{{ press.media_bulk_download_link_text }}</a>{{ press.media_bulk_download_suffix }}
+    </p>
+
+    <div class="pressMediaTabs" role="tablist" aria-label="{{ press.media_tabs_label }}">
+      <button class="pressMediaTab isActive" type="button" role="tab" aria-selected="true" data-media-filter="all">{{ press.media_tabs.all }}</button>
+      <button class="pressMediaTab" type="button" role="tab" aria-selected="false" data-media-filter="ios">{{ press.media_tabs.ios }}</button>
+      <button class="pressMediaTab" type="button" role="tab" aria-selected="false" data-media-filter="ipad">{{ press.media_tabs.ipad }}</button>
+      <button class="pressMediaTab" type="button" role="tab" aria-selected="false" data-media-filter="icon">{{ press.media_tabs.icon }}</button>
+    </div>
+
+    <div class="pressMediaGrid">
+      {% if press_home != "" %}
+      <figure class="pressMediaCard" data-media-type="ios">
+        <a class="pressMediaLink" href="{{ press_home | relative_url }}" data-pswp-width="1206" data-pswp-height="2622" data-pswp-caption="{{ press.media_assets.home_caption | default: 'Home' }}">
+          <img src="{{ press_home | relative_url }}" alt="{{ press.media_assets.home_alt | default: 'Home screenshot' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_home | relative_url }}" download="ios-1.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_favorites != "" %}
+      <figure class="pressMediaCard" data-media-type="ios">
+        <a class="pressMediaLink" href="{{ press_favorites | relative_url }}" data-pswp-width="1206" data-pswp-height="2622" data-pswp-caption="{{ press.media_assets.favorites_caption | default: 'Favorites' }}">
+          <img src="{{ press_favorites | relative_url }}" alt="{{ press.media_assets.favorites_alt | default: 'Favorites screenshot' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_favorites | relative_url }}" download="ios-2.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_categories != "" %}
+      <figure class="pressMediaCard" data-media-type="ios">
+        <a class="pressMediaLink" href="{{ press_categories | relative_url }}" data-pswp-width="1206" data-pswp-height="2622" data-pswp-caption="{{ press.media_assets.categories_caption | default: 'Categories' }}">
+          <img src="{{ press_categories | relative_url }}" alt="{{ press.media_assets.categories_alt | default: 'Categories screenshot' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_categories | relative_url }}" download="ios-3.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_detective != "" %}
+      <figure class="pressMediaCard" data-media-type="ios">
+        <a class="pressMediaLink" href="{{ press_detective | relative_url }}" data-pswp-width="1206" data-pswp-height="2622" data-pswp-caption="{{ press.media_assets.detective_caption | default: 'Detektivgeschichten' }}">
+          <img src="{{ press_detective | relative_url }}" alt="{{ press.media_assets.detective_alt | default: 'Detektivgeschichten screenshot' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_detective | relative_url }}" download="ios-4.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_player_1 != "" %}
+      <figure class="pressMediaCard" data-media-type="ios">
+        <a class="pressMediaLink" href="{{ press_player_1 | relative_url }}" data-pswp-width="1206" data-pswp-height="2622" data-pswp-caption="{{ press.media_assets.player_1_caption | default: 'Player 1' }}">
+          <img src="{{ press_player_1 | relative_url }}" alt="{{ press.media_assets.player_1_alt | default: 'Player 1 screenshot' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_player_1 | relative_url }}" download="ios-5.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_player_2 != "" %}
+      <figure class="pressMediaCard" data-media-type="ios">
+        <a class="pressMediaLink" href="{{ press_player_2 | relative_url }}" data-pswp-width="1206" data-pswp-height="2622" data-pswp-caption="{{ press.media_assets.player_2_caption | default: 'Player 2' }}">
+          <img src="{{ press_player_2 | relative_url }}" alt="{{ press.media_assets.player_2_alt | default: 'Player 2 screenshot' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_player_2 | relative_url }}" download="ios-6.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_ipad_home != "" %}
+      <figure class="pressMediaCard" data-media-type="ipad">
+        <a class="pressMediaLink" href="{{ press_ipad_home | relative_url }}" data-pswp-width="2360" data-pswp-height="1640" data-pswp-caption="{{ press.media_assets.ipad_home_caption | default: 'iPad Home' }}">
+          <img src="{{ press_ipad_home | relative_url }}" alt="{{ press.media_assets.ipad_home_alt | default: 'iPad home view' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_ipad_home | relative_url }}" download="ipad-1.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_ipad_favorites != "" %}
+      <figure class="pressMediaCard" data-media-type="ipad">
+        <a class="pressMediaLink" href="{{ press_ipad_favorites | relative_url }}" data-pswp-width="2360" data-pswp-height="1640" data-pswp-caption="{{ press.media_assets.ipad_favorites_caption | default: 'iPad Favorites' }}">
+          <img src="{{ press_ipad_favorites | relative_url }}" alt="{{ press.media_assets.ipad_favorites_alt | default: 'iPad favorites view' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_ipad_favorites | relative_url }}" download="ipad-2.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_ipad_categories != "" %}
+      <figure class="pressMediaCard" data-media-type="ipad">
+        <a class="pressMediaLink" href="{{ press_ipad_categories | relative_url }}" data-pswp-width="2360" data-pswp-height="1640" data-pswp-caption="{{ press.media_assets.ipad_categories_caption | default: 'iPad Categories' }}">
+          <img src="{{ press_ipad_categories | relative_url }}" alt="{{ press.media_assets.ipad_categories_alt | default: 'iPad categories view' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_ipad_categories | relative_url }}" download="ipad-3.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_ipad_detective != "" %}
+      <figure class="pressMediaCard" data-media-type="ipad">
+        <a class="pressMediaLink" href="{{ press_ipad_detective | relative_url }}" data-pswp-width="2360" data-pswp-height="1640" data-pswp-caption="{{ press.media_assets.ipad_detective_caption | default: 'iPad Detective Stories' }}">
+          <img src="{{ press_ipad_detective | relative_url }}" alt="{{ press.media_assets.ipad_detective_alt | default: 'iPad detective stories view' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_ipad_detective | relative_url }}" download="ipad-4.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      {% if press_ipad_player != "" %}
+      <figure class="pressMediaCard" data-media-type="ipad">
+        <a class="pressMediaLink" href="{{ press_ipad_player | relative_url }}" data-pswp-width="1640" data-pswp-height="2360" data-pswp-caption="{{ press.media_assets.ipad_player_caption | default: 'iPad Player' }}">
+          <img src="{{ press_ipad_player | relative_url }}" alt="{{ press.media_assets.ipad_player_alt | default: 'iPad player view' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ press_ipad_player | relative_url }}" download="ipad-5.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+      {% endif %}
+      <figure class="pressMediaCard" data-media-type="icon">
+        <a class="pressMediaLink" href="{{ site.app_icon | relative_url }}" data-pswp-width="1024" data-pswp-height="1024" data-pswp-caption="{{ press.media_assets.icon_caption | default: 'App icon' }}">
+          <img src="{{ site.app_icon | relative_url }}" alt="{{ press.media_assets.icon_alt | default: 'App icon' }}">
+        </a>
+        <a class="pressMediaDownloadInline" href="{{ site.app_icon | relative_url }}" download="hoerbaer-asset-app-icon.png">
+          <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
+          <span>{{ press.download_button_text | default: "Download" }}</span>
+        </a>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import PhotoSwipeLightbox from "https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var qrToggle = document.querySelector(".pressQrToggle");
+    var qrPanel = document.querySelector(".pressQrPanel");
+    var qrLink = document.querySelector(".pressQrLink");
+    var qrImage = document.querySelector(".pressQrImage");
+    var storeLink = document.querySelector(".pressOverviewStoreLink.appStoreLink");
+
+    function qrSrcFor(url) {
+      return "https://api.qrserver.com/v1/create-qr-code/?size=360x360&format=svg&margin=8&color=255-106-0&bgcolor=243-238-229&data=" + encodeURIComponent(url);
+    }
+
+    function syncQrTarget(url) {
+      if (!url) {
+        return;
+      }
+      if (qrLink) {
+        qrLink.setAttribute("href", url);
+      }
+      if (qrImage) {
+        qrImage.setAttribute("src", qrSrcFor(url));
+      }
+    }
+
+    if (storeLink) {
+      syncQrTarget(storeLink.getAttribute("href"));
+      if (window.MutationObserver) {
+        var observer = new MutationObserver(function () {
+          syncQrTarget(storeLink.getAttribute("href"));
+        });
+        observer.observe(storeLink, {
+          attributes: true,
+          attributeFilter: ["href"]
+        });
+      }
+    }
+
+    if (qrToggle && qrPanel) {
+      qrToggle.addEventListener("click", function () {
+        qrPanel.removeAttribute("hidden");
+        qrToggle.remove();
+      });
+    }
+
+    var tabs = Array.prototype.slice.call(document.querySelectorAll(".pressMediaTab"));
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".pressMediaCard"));
+    var grid = document.querySelector(".pressMediaGrid");
+    if (!tabs.length || !cards.length || !grid) {
+      return;
+    }
+
+    var downloadLabel = {{ press.download_label | default: "Download" | jsonify }};
+    var downloadButtonText = {{ press.download_button_text | default: "Download" | jsonify }};
+    var downloadFilenamePrefix = {{ press.download_filename_prefix | default: "hoerbaer-asset" | jsonify }};
+
+    var lightbox = new PhotoSwipeLightbox({
+      gallery: grid,
+      children: ".pressMediaCard:not([hidden]) .pressMediaLink",
+      pswpModule: function () {
+        return import("https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.esm.min.js");
+      },
+      showHideAnimationType: "zoom",
+      showAnimationDuration: 333,
+      hideAnimationDuration: 333
+    });
+
+    function downloadCurrentImage(pswp) {
+      var slideData = pswp && pswp.currSlide ? pswp.currSlide.data : null;
+      if (!slideData || !slideData.src) {
+        return;
+      }
+
+      var src = slideData.src;
+      var cleanPath = src.split("?")[0];
+      var extensionMatch = cleanPath.match(/\.([a-z0-9]+)$/i);
+      var extension = extensionMatch ? extensionMatch[1] : "jpg";
+      var slideNumber = String((pswp.currIndex || 0) + 1).padStart(2, "0");
+      var filename = downloadFilenamePrefix + "-" + slideNumber + "." + extension;
+
+      var link = document.createElement("a");
+      link.href = src;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+
+    lightbox.on("uiRegister", function () {
+      lightbox.pswp.ui.registerElement({
+        name: "download-button",
+        order: 8,
+        isButton: true,
+        tagName: "button",
+        title: downloadLabel,
+        html: '<span class="pressPswpDownloadIcon" aria-hidden="true"><i class="fas fa-arrow-circle-down"></i></span><span class="pressPswpDownloadText"></span>',
+        onInit: function (el) {
+          var textEl = el.querySelector(".pressPswpDownloadText");
+          if (textEl) {
+            textEl.textContent = downloadButtonText;
+          }
+        },
+        onClick: function (_event, _el, pswp) {
+          downloadCurrentImage(pswp);
+        }
+      });
+
+      lightbox.pswp.ui.registerElement({
+        name: "custom-caption",
+        order: 9,
+        isButton: false,
+        appendTo: "root",
+        html: "",
+        onInit: function (el, pswp) {
+          function updateCaption() {
+            var curr = pswp.currSlide && pswp.currSlide.data ? pswp.currSlide.data.element : null;
+            var caption = curr ? curr.getAttribute("data-pswp-caption") : "";
+            el.textContent = caption || "";
+            el.style.display = caption ? "block" : "none";
+          }
+
+          pswp.on("change", updateCaption);
+          pswp.on("afterInit", updateCaption);
+        }
+      });
+    });
+
+    lightbox.init();
+
+    var reducedMotionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    var prefersReducedMotion = reducedMotionQuery ? reducedMotionQuery.matches : false;
+    var activeFilter = "all";
+    var isFiltering = false;
+
+    function cardMatchesFilter(card, filter) {
+      var type = card.getAttribute("data-media-type");
+      return filter === "all" || type === filter;
+    }
+
+    function setActiveTab(filter) {
+      tabs.forEach(function (tab) {
+        var isActive = tab.getAttribute("data-media-filter") === filter;
+        tab.classList.toggle("isActive", isActive);
+        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+    }
+
+    function clearInlineAnimationStyles() {
+      cards.forEach(function (card) {
+        card.style.opacity = "";
+        card.style.transform = "";
+      });
+    }
+
+    function finishAnimation(animation) {
+      return animation.finished.catch(function () {
+        return null;
+      });
+    }
+
+    function applyFilterWithoutAnimation(filter) {
+      cards.forEach(function (card) {
+        card.hidden = !cardMatchesFilter(card, filter);
+      });
+    }
+
+    async function applyFilter(filter, options) {
+      options = options || {};
+
+      var shouldAnimate = options.animate !== false && !prefersReducedMotion;
+      if (filter === activeFilter && options.force !== true) {
+        return;
+      }
+      if (isFiltering) {
+        return;
+      }
+
+      activeFilter = filter;
+      setActiveTab(filter);
+
+      if (!shouldAnimate) {
+        applyFilterWithoutAnimation(filter);
+        return;
+      }
+
+      isFiltering = true;
+
+      try {
+        var firstRects = new Map();
+        cards.forEach(function (card) {
+          if (!card.hidden) {
+            firstRects.set(card, card.getBoundingClientRect());
+          }
+        });
+
+        var leavingCards = [];
+        var enteringCards = [];
+
+        cards.forEach(function (card) {
+          var isVisibleNow = !card.hidden;
+          var willBeVisible = cardMatchesFilter(card, filter);
+          if (isVisibleNow && !willBeVisible) {
+            leavingCards.push(card);
+          } else if (!isVisibleNow && willBeVisible) {
+            enteringCards.push(card);
+          }
+        });
+
+        await Promise.all(
+          leavingCards.map(function (card) {
+            return finishAnimation(
+              card.animate(
+                [
+                  { opacity: 1, transform: "translateY(0) scale(1)" },
+                  { opacity: 0, transform: "translateY(10px) scale(0.985)" }
+                ],
+                { duration: 180, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+              )
+            );
+          })
+        );
+
+        leavingCards.forEach(function (card) {
+          card.hidden = true;
+        });
+
+        enteringCards.forEach(function (card) {
+          card.hidden = false;
+        });
+
+        var enteringSet = new Set(enteringCards);
+        var moveOrEnterAnimations = [];
+
+        cards.forEach(function (card) {
+          if (card.hidden) {
+            return;
+          }
+
+          if (enteringSet.has(card)) {
+            moveOrEnterAnimations.push(
+              finishAnimation(
+                card.animate(
+                  [
+                    { opacity: 0, transform: "translateY(14px) scale(0.98)" },
+                    { opacity: 1, transform: "translateY(0) scale(1)" }
+                  ],
+                  { duration: 260, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)", fill: "forwards" }
+                )
+              )
+            );
+            return;
+          }
+
+          var firstRect = firstRects.get(card);
+          if (!firstRect) {
+            return;
+          }
+          var lastRect = card.getBoundingClientRect();
+          var deltaX = firstRect.left - lastRect.left;
+          var deltaY = firstRect.top - lastRect.top;
+          if (Math.abs(deltaX) <= 0.5 && Math.abs(deltaY) <= 0.5) {
+            return;
+          }
+
+          moveOrEnterAnimations.push(
+            finishAnimation(
+              card.animate(
+                [
+                  { transform: "translate(" + deltaX + "px, " + deltaY + "px)" },
+                  { transform: "translate(0, 0)" }
+                ],
+                { duration: 280, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)", fill: "forwards" }
+              )
+            )
+          );
+        });
+
+        await Promise.all(moveOrEnterAnimations);
+      } finally {
+        clearInlineAnimationStyles();
+        isFiltering = false;
+      }
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        applyFilter(tab.getAttribute("data-media-filter"));
+      });
+    });
+
+    applyFilter("all", { animate: false, force: true });
+  });
+</script>

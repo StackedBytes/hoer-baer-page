@@ -40,18 +40,37 @@ imprint:
     meta_description: "Imprint and provider information for the HoerBaer app in accordance with Austrian ECG requirements."
     include: "localized-pages/imprint/en.md"
 
+press:
+  de:
+    permalink: "/de/press/"
+    title: "Presse"
+    page_title: "Press Kit | HörBär"
+    meta_description: "Presseinformationen, Screenshots und Kontakt zur HörBär-App für redaktionelle Nutzung."
+    include_in_header: true
+    nav_order: 10
+    include: "localized-pages/press/de.md"
+  en:
+    permalink: "/press/"
+    title: "Press"
+    page_title: "Press Kit | HörBär"
+    meta_description: "Press information, screenshots, and contact details for editorial coverage of the HoerBaer app."
+    include_in_header: true
+    nav_order: 10
+    include: "localized-pages/press/en.md"
 changelog:
   de:
     permalink: "/de/changelog/"
-    title: "Neuigkeiten"
-    page_title: "Neuigkeiten | HörBär"
+    title: "Changelog"
+    page_title: "Changelog | HörBär"
     meta_description: "Versionshinweise und aktuelle Änderungen der HörBär-App."
-    include_in_header: false
+    include_in_header: true
+    nav_order: 20
     include: "localized-pages/changelog/de.md"
   en:
     permalink: "/changelog/"
     title: "Changelog"
     page_title: "Changelog | HoerBaer"
     meta_description: "Release notes and recent updates for the HoerBaer app."
-    include_in_header: false
+    include_in_header: true
+    nav_order: 20
     include: "localized-pages/changelog/en.md"

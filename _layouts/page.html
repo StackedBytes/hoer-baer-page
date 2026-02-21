@@ -29,7 +29,7 @@
     <div class="headerBackground subPageHeaderBackground">
         <div class="container subPageContainer">
         {% include header.html %}
-            <article class="page markdown-body">
+            <article class="page markdown-body{% if page.translation_key == 'press' %} pressPage{% endif %}">
                 {{ content }}
             </article>
         </div>
