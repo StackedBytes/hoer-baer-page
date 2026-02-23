@@ -36,6 +36,9 @@ de:
     terms: "AGB"
     imprint: "Impressum"
     switch_language: "English"
+  legal:
+    notice_heading: "Hinweis zu Marken und Urheberrecht"
+    screenshots_editorial_notice: "Die im Press Kit bereitgestellten Screenshots dürfen für die redaktionelle Berichterstattung über die App HörBär verwendet werden. In den Screenshots können urheber- und markenrechtlich geschützte Inhalte Dritter (z. B. Albumcover oder Künstlernamen) enthalten sein; die Rechte daran liegen bei den jeweiligen Inhabern. Apple Music ist eine eingetragene Marke der Apple Inc."
   press:
     heading: "Über HörBär"
     intro: "HörBär hilft Familien, schnell und unkompliziert passende, kindgerechte Hörspiele in Apple Music zu finden. Da die App auf einem bestehenden Apple-Music-Abo aufsetzt, entfallen zusätzliche Einzelkäufe pro Titel. Mit dem Geführten Zugriff lässt sich das iPhone als sichere Hörbox nutzen - mit Zugriff nur auf HörBär."
@@ -52,7 +55,7 @@ de:
     maker_text: "HörBär wird von Ben Rudhart entwickelt. Der Fokus liegt auf einer ruhigen, kindgerechten Hörerfahrung für Familien."
     questions_heading: "Fragen? Melde dich gern."
     questions_text: "Bei Fragen oder für weitere Informationen kontaktiere uns gern per E-Mail unter"
-    media_intro: "Du kannst alle Bilder unten frei für redaktionelle Zwecke nutzen."
+    media_intro: "Die untenstehenden Screenshots kannst du für die redaktionelle Berichterstattung über HörBär verwenden."
     media_bulk_download_prefix: "Zusätzlich kannst du alle Assets gesammelt"
     media_bulk_download_link_text: "hier"
     media_bulk_download_suffix: " herunterladen."
@@ -162,6 +165,9 @@ en:
     terms: "Terms and Conditions"
     imprint: "Imprint"
     switch_language: "Deutsch"
+  legal:
+    notice_heading: "Trademark and Copyright Notice"
+    screenshots_editorial_notice: "The screenshots provided in this press kit may be used for editorial coverage of the HoerBaer app. Screenshots may include third-party copyrighted and trademarked content (for example album artwork or artist names); rights to such content remain with their respective owners. Apple Music is a registered trademark of Apple Inc."
   press:
     heading: "About HoerBaer"
     intro: "HoerBaer helps families quickly and easily find suitable, child-friendly audio dramas in Apple Music. Because the app builds on an existing Apple Music subscription, there is no need for additional per-title purchases. With Apple's Guided Access, the iPhone can be used as a safe audio box with access limited to HoerBaer."
@@ -178,7 +184,7 @@ en:
     maker_text: "HoerBaer is made by Ben Rudhart, with a focus on a calm and child-friendly listening experience for families."
     questions_heading: "Questions? Reach Out."
     questions_text: "For additional questions or information, please contact us by email at"
-    media_intro: "Feel free to use any of the images below for editorial coverage."
+    media_intro: "You may use the screenshots below for editorial coverage of HoerBaer."
     media_bulk_download_prefix: "Additionally, you can download all of these at once right"
     media_bulk_download_link_text: "here"
     media_bulk_download_suffix: "."

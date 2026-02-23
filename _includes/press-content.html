@@ -16,6 +16,7 @@
 {% assign current_locale = supported_locales[press_lang] | default: supported_locales[default_locale_code] %}
 {% assign press = site.data.i18n[press_lang].press | default: site.data.i18n[default_locale_code].press %}
 {% assign locale_texts = site.data.i18n[press_lang] | default: site.data.i18n[default_locale_code] %}
+{% assign legal_notice = locale_texts.legal.screenshots_editorial_notice | default: press.legal_disclaimer %}
 {% assign localized_app_name = site.app_name | default: locale_texts.hero_headline %}
 {% assign press_website_url = site.url | default: "https://www.hoerbaer.app" %}
 {% if press_website_url == nil or press_website_url == "" or press_website_url contains "localhost" %}
@@ -432,6 +433,9 @@
       </figure>
     </div>
   </div>
+  {% if legal_notice and legal_notice != "" %}
+  <p class="pressLegalFootnote">{{ legal_notice }}</p>
+  {% endif %}
 </div>
 
 <script type="module">

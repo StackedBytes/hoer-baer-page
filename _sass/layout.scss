@@ -680,6 +680,16 @@ $press-after-value-gap: 20px;
 	margin-top: 16px;
 }
 
+.pressLegalFootnote {
+	grid-column: 1 / -1;
+	margin: 42px 0 0 0;
+	padding-top: 8px;
+	border-top: 1px solid rgba($feature-title-color, 0.16);
+	font-size: 1.1rem;
+	line-height: 1.5;
+	color: rgba($feature-title-color, 0.46);
+}
+
 .pressMediaCard {
 	margin: 0;
 	border: 0;
