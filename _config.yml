@@ -16,6 +16,7 @@ app_price                                 : Im App Store ansehen                
 app_description                           : HörBär hilft Familien, schnell passende und kindgerechte Hörspiele in Apple Music zu finden und nahtlos weiterzuhören.
 
 enable_smart_app_banner                   : true                                      # Set to true to show a smart app banner at top of page on mobile devices.
+telemetrydeck_app_id                      : A5014D20-9221-40E5-890F-3ADD1785DA4D      # TelemetryDeck Web App ID
 
 
 
