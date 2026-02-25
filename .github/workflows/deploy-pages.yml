@@ -39,6 +39,8 @@ jobs:
         run: ruby ./scripts/check_i18n.rb
 
       - name: Build with Jekyll
+        env:
+          JEKYLL_ENV: production
         run: bundle exec jekyll build
 
       - name: Upload artifact

@@ -233,7 +233,7 @@
     </div>
 
     {% if site.appstore_link %}
-      <a class="pressOverviewStoreLink appStoreLink" href="{{ site.appstore_link }}" target="_blank" rel="noopener noreferrer" data-prefer-api="true" data-td-event="download_link_click" data-td-location="press-overview">
+      <a class="pressOverviewStoreLink appStoreLink" href="{{ site.appstore_link }}" target="_blank" rel="noopener noreferrer" data-prefer-api="true" data-td-signal="download_link_click" data-td-value-location="press-overview">
         <img class="pressOverviewStoreBadge" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/{{ appstore_badge_locale }}?size=250x83" alt="{{ locale_texts.appstore_badge_alt | default: 'Download on the App Store' }}">
       </a>
       <button class="pressQrToggle" type="button" aria-expanded="false" aria-controls="pressQrPanel">

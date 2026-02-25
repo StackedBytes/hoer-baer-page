@@ -111,40 +111,118 @@
 	<link rel="shortcut icon" href="{{ site.app_icon | relative_url }}">
 
 	<!-- Smart App Banner -->
-	{% if site.enable_smart_app_banner %}
-		<meta name="apple-itunes-app" content="app-id={{ site.ios_app_id }}">
-	{% endif %}
-	{% if site.telemetrydeck_app_id %}
-		<script
-			src="https://cdn.telemetrydeck.com/websdk/telemetrydeck.min.js"
-			data-app-id="{{ site.telemetrydeck_app_id }}"
-		></script>
-		<script>
-			(function () {
-				document.addEventListener(
-					"click",
-					function (event) {
-						var target = event.target;
-						if (!target || !target.closest) {
+		{% if site.enable_smart_app_banner %}
+			<meta name="apple-itunes-app" content="app-id={{ site.ios_app_id }}">
+		{% endif %}
+		{% if site.telemetrydeck_app_id and jekyll.environment == "production" %}
+			<script
+				src="https://cdn.telemetrydeck.com/websdk/telemetrydeck.min.js"
+				data-app-id="{{ site.telemetrydeck_app_id }}"
+			></script>
+			<script>
+				(function () {
+					var appID = "{{ site.telemetrydeck_app_id }}";
+					var signalSelector = "[data-td-signal]";
+					var clientUserStorageKey = "hb_td_client_user";
+					var sessionIDStorageKey = "hb_td_session_id";
+					var telemetryEndpoint = "https://nom.telemetrydeck.com/v2/signal";
+
+					function createID() {
+						if (window.crypto && typeof window.crypto.randomUUID === "function") {
+							return window.crypto.randomUUID();
+						}
+						return "hb-" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+					}
+
+					function getOrCreateStorageValue(storage, key) {
+						try {
+							var existing = storage.getItem(key);
+							if (existing) {
+								return existing;
+							}
+							var created = createID();
+							storage.setItem(key, created);
+							return created;
+						} catch (error) {
+							return createID();
+						}
+					}
+
+					function sha256Hex(value) {
+						if (!window.crypto || !window.crypto.subtle || !window.TextEncoder) {
+							return Promise.resolve(value);
+						}
+						var bytes = new TextEncoder().encode(value);
+						return window.crypto.subtle.digest("SHA-256", bytes).then(function (buffer) {
+							return Array.from(new Uint8Array(buffer))
+								.map(function (byte) {
+									return byte.toString(16).padStart(2, "0");
+								})
+								.join("");
+						});
+					}
+
+					var rawClientUser = getOrCreateStorageValue(window.localStorage, clientUserStorageKey);
+					var sessionID = getOrCreateStorageValue(window.sessionStorage, sessionIDStorageKey);
+					var clientUserPromise = sha256Hex(rawClientUser);
+
+					function sendSignal(signalType, payload) {
+						if (!signalType) {
 							return;
 						}
-						var trackedElement = target.closest("[data-td-event]");
-						if (!trackedElement) {
-							return;
-						}
-						if (!window.td || typeof window.td.signal !== "function") {
-							return;
-						}
-						window.td.signal(
-							trackedElement.getAttribute("data-td-event"),
-							{ location: trackedElement.getAttribute("data-td-location") || "" }
-						);
-					},
-					true
-				);
-			})();
-		</script>
-	{% endif %}
+						clientUserPromise
+							.then(function (clientUser) {
+								var body = JSON.stringify({
+									appID: appID,
+									clientUser: clientUser,
+									sessionID: sessionID,
+									signalType: signalType,
+									payload: payload || {}
+								});
+								if (navigator.sendBeacon) {
+									var sent = navigator.sendBeacon(
+										telemetryEndpoint,
+										new Blob([body], { type: "application/json" })
+									);
+									if (sent) {
+										return;
+									}
+								}
+								fetch(telemetryEndpoint, {
+									method: "POST",
+									headers: { "Content-Type": "application/json" },
+									body: body,
+									keepalive: true,
+									mode: "cors"
+								}).catch(function () {});
+							})
+							.catch(function () {});
+					}
+
+					document.addEventListener(
+						"click",
+						function (event) {
+							var target = event.target;
+							if (!target || !target.closest) {
+								return;
+							}
+							var trackedElement = target.closest(signalSelector);
+							if (!trackedElement) {
+								return;
+							}
+							var signalType = trackedElement.getAttribute("data-td-signal");
+							var locationValue = trackedElement.getAttribute("data-td-value-location");
+							var payload = {};
+							if (locationValue) {
+								payload.location = locationValue;
+							}
+							sendSignal(signalType, payload);
+						},
+						true
+					);
+				})();
+			</script>
+		{% endif %}
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
