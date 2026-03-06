@@ -6,6 +6,7 @@ locales:
   en:
     bcp47: en-US
     og_locale: en_US
+    og_image: assets/social/og-preview-en.png
     path_prefix: ""
     appstore_badge_locale: en-us
     itunes_country: us
@@ -16,6 +17,7 @@ locales:
   de:
     bcp47: de-DE
     og_locale: de_DE
+    og_image: assets/social/og-preview-de.png
     path_prefix: "/de"
     appstore_badge_locale: de-de
     itunes_country: de
